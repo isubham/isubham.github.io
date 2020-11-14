@@ -1,0 +1,18 @@
+<div class="container">
+    <img ng-src="{{profile_pic}}" class="col-md-2 col-md-offset-5 round"  />
+    
+</div>
+
+<div class="container ">
+    <br><br>
+    <div class="col-md-4 col-md-offset-4" ng-repeat="section in data.home.sections">
+
+        <div class="panel" >
+        <div class="panel-heading text-center">
+            {{section.heading}}
+        </div>
+        <div class="panel-body text-center">{{section.description}}</div>
+    </section>
+    </div>
+
+</div>

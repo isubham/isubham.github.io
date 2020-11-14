@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    </head>
+
+    <body>
+   
+        <!-- navigation -->
+<nav class="navbar iwhite navbar-fixed-top ">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand iblack" href="#">
+          <p class="">Subham</p>
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right iblack">
+        <li>
+            <a href="#!/blog">Blog</a>
+        </li>
+        <li>
+            <a href="#!/video">Video</a>
+        </li>
+        <li>
+            <a href="#!/audio">Audio</a>
+        </li>
+
+    </div>
+</nav>
+<br>
+<br>
+<br>
+
+
+        <!-- content -->
+        <div ng-view></div>
+
+
+        <!-- footer -->
+
+    </body>
+
+    <footer class="bg-grey">
+
+        <!-- <div class="container padded-top-bottom">
+            <div class="row">
+                <div class="text-center">
+                    Made with <3 
+                </div>
+            </div>
+            
+        </div> -->
+
+
+
+        <script src="library/angular.min.js""></script>
+        <script src="library/angular-route.min.js"></script>
+        <script src="library/angular-touch.min.js"></script>
+        <script src="library/angular-animate.min.js"></script>
+
+        <script src="library/ui-bootstrap-tpls-2.5.0.min.js"></script>
+        <script src="library/papaparse.min.js"></script>
+        <script src="library/ramda0.25.min.js"></script>
+        <script src="https://unpkg.com/@angular/router@0.2.0/angular1/angular_1_router.js"></script>
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="app.css" >
+
+        <script src="app.js"></script>
+        <script src="shared/file.service.js"></script>
+        <script src="shared/data.provider.js"></script>
+ 
+        <script src="components/nav/nav.component.js"></script>
+        <script src="components/blog-post-intro/blog-post-intro.component.js"></script>
+        <script src="components/blog/blog.controller.js"></script>
+        <script src="components/blog-post-detail/blog-post-detail.component.js"></script>
+
+        <script src="components/youtube-video/youtube-video.component.js"></script>
+        <script src="components/home/home.controller.js"></script>
+        <script src="components/video/video.controller.js"></script>
+        <script src="components/spotify-song/spotify-song.component.js"></script>
+        <script src="components/audio/audio.controller.js"></script>
+
+    </footer>
+
+</html>

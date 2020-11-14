@@ -1,0 +1,18 @@
+<nav class="navbar iwhite navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <p class="">{{$ctrl.nav.brand.name}}</p>
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-repeat="link in $ctrl.nav.links">
+            <a href="{{link.url}}">{{link.title}}</a>
+        </li>
+
+    </div>
+</nav>
+<br>
+<br>
+<br>
