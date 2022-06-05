@@ -1,5 +1,4 @@
-
-function dragElement(elmnt, elementHeader) {
+function drag(elmnt, elementHeader) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     elementHeader.onmousedown = dragMouseDown;
@@ -33,10 +32,5 @@ function dragElement(elmnt, elementHeader) {
         document.onmousemove = null;
     }
 }
-let elementHeader = document.getElementById('appWindowHeader');
-let elementToDrag = document.getElementById("appWindow");
-dragElement(elementToDrag, elementHeader);
 
-function hello(event) {
-    alert('hello');
-}
+export { drag };
