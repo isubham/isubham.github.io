@@ -1,7 +1,5 @@
 
 .application {
-    width: 25vw;
-    height: 25vh;
     border: 1px solid grey;
     background-color: white;
     border-radius: 8px;
@@ -9,11 +7,14 @@
     overflow: auto;
     position: absolute;
     z-index: 9;
+    display: flex;
+    flex-direction: column;
 }
 
 .action-icon {
     cursor:initial;
 }
+
 .application-header {
     height: 2em;
     padding: 0.5em;
@@ -22,10 +23,13 @@
     cursor: move;
     display: flex;
     z-index: 10;
+    justify-content: space-between;
+    flex: 0 1 auto;
 }
 
 .application-content {
     background-color: white;
+    flex: 1 1 auto;
 }
 
 .action-icon {
@@ -45,4 +49,8 @@
 }
 .application .green {
     background-color: #53c653;
+}
+
+.action-icon-container {
+    display: flex;
 }

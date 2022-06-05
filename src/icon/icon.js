@@ -1,7 +1,7 @@
 import './icon.css'
-const Icon = ({image, title}) => {
+const Icon = ({image, title, clickBehaviour}) => {
     return (
-        <div className="icon" >
+        <div className="icon" onClick={clickBehaviour}>
             <div className="icon-image file-icon">
                 <img src={image} alt="file-icon" className="medium" />
             </div>
