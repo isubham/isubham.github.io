@@ -1,0 +1,22 @@
+
+* Subham Kumar
+
+🔥 🌊 🪨 🌪 ⚪
+
+---
+
+** Tools i Use
+🔥 🌊 🪨 🌪 ⚪
+wake up and after my morning routine, i open my [[./smartphone.html][*smartphone's*]] and *call* X.
+then listen to some *mp3* or *flac*, or *stream* it on Spotify.
+
+come back and after doing some daily chores
+
+open my *laptop* with some *OS*. 
+
+connect it to *internet* with *wifi* and open *web browser* to check *email*
+
+write some *code* in some *text editor* or *IDE*
+Generally i use *Node.js*. these *server* interact with other servers like *Databse*, *Message Queues*, etc.
+ 
+---

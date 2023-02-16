@@ -1,0 +1,20 @@
+## session 1 : 21st Jan 11:30 - 12:30
+
+HTTP HyperText Transfer Protocol
+
+CERN 1989, a 34 year old UK computer scientist, Time Bernes Lee wrote document explaining HTTP.
+He had already worked on world wide web, 
+
+Hyper-Text 
+Transfer
+Protocol
+
+Computers were 
+Tim-Berners Lee (1989-1991) is the author or original specification of HTTP v1. The intent was the create a technology that would allow computer in the network (internet) to communicate with each other.
+
+What was before HTTP?
+I guess SMTP or simple mail transfer protocol was there where we could transfer content with email.
+
+
+## session 2: 22nd Jan 4:30PM - 5:00PM
+
