@@ -1,4 +1,5 @@
-
+#+OPTIONS: toc:nil  :PROPERTIES: :UNNUMBERED: notoc :END:
+#+AUTHOR: subham kumar
 * Subham Kumar
 
 🔥 🌊 🪨 🌪 ⚪
@@ -7,7 +8,7 @@
 
 ** Tools i Use
 🔥 🌊 🪨 🌪 ⚪
-wake up and after my morning routine, i open my [[./smartphone.html][*smartphone's*]] and *call* X.
+wake up and after my morning routine, i open my [[file:smartphone.html][smartphone's]] and *call* X.
 then listen to some *mp3* or *flac*, or *stream* it on Spotify.
 
 come back and after doing some daily chores

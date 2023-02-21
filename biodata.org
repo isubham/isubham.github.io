@@ -1,0 +1,33 @@
+
+#+OPTIONS: toc:nil  :PROPERTIES: :UNNUMBERED: notoc :END:
+#+AUTHOR: subham kumar
+** BioData
+
+Name : Subham Kumar
+
+DOB : 3 Mar 1996
+
+Father’s Name : Shri Subodh Kumar Singh
+
+Mother’s Name : Smt. Kusum Devi
+
+Add : House No 70, Niche Basti, Chandwara, Koderma, PO + POS - Chandwara
+
+Height : 5’8’’
+
+Weight : 74
+
+**Education:**
+
+- 10 and 12 : PVSS DAV Public School, Jhumri Telaiya
+- BTech in Computer Science : BIT Sindri, Jharkhnad
+- Currently working in a software Company as a Senior Software Engineer at Recro, Bangalore
+
+**Skills & Hobbies**
+
+- Sport & Yoga
+- Drawing, Reading Books
+
+
+[[file:img/me-black-shirt.jpeg]]
+
