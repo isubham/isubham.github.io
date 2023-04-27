@@ -1,0 +1,97 @@
+** OrgMode
+*** why org-mode?
+
+ i use
+ - notion for taking notes
+ - google calender for task management
+ - tasks google sheets
+
+ FRAGMENTATED SILOS
+ all these different tools are sort of distracting because you have to use them differently and they all
+ are not integrated
+
+ DISTRACTION
+ all these things are also connected to web browser which might be distracting at times
+
+*** resources
+
+https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/
+
+*** Basics
+
+1. headlines using *,
+   moving with alt + arrow keys,
+   promotion with alt and arrow keys,
+   and toggle with tab
+
+2. list using +, -, 1, 2
+   and end with M-enter, can move with alt and arrows just headings
+
+   1. one
+   2. two
+   3. three
+   4. four
+      1. four one
+      2. four two
+	 1. four two 1
+	 2. four two 2
+
+3. Tables start with | and use Shift + Alt + arrow to generate and Alt + arrow to move
+
+   |   |   | one |
+   |---+---+-----|
+   |   |   |     |
+   |---+---+-----|
+   |   |   |     |
+
+4. Images: [[image-location] ] we can have images
+
+5. Tasks
+
+shift and arrow to create todo and cycle between states
+
+we can split a task into multiple tasks by splitting them
+and then adding [/] or [%] in the parent
+
+*** Tasks [0/4] [0%]
+**** TODO read shared page :zeeve:
+DEADLINE: <2022-10-02 Sun> SCHEDULED: <2022-10-01 Sat>
+
+**** TODO watch some youtube videos on blockchain :zeeve:
+**** TODO Read the backend codebase for Platform :zeeve:
+DEADLINE: <2022-10-02 Sun> SCHEDULED: <2022-10-02 Sun>
+
+**** TODO solve 2 leetcode problems :dsa:
+DEADLINE: <2022-10-01 Sat +1d>
+
+6. checkboxes maybe create even smaller steps in tasks and they wont appear in global lists.
+
+- [ ] frontend
+- [ ] backend
+- one
+- two
+- three
+-
+
+*** Org-Capture
+*** Links
+
+Reference : https://www.youtube.com/watch?v=BRqjaN4-gGQ
+
+there are 2 types
+external which has [ [ url ] [ title ]] with no spaces
+
+[[https://www.youtube.com/watch?v=BRqjaN4-gGQ][Links in Org mode]]
+
+internal links [ [ title ] ]
+we can reference
+
+[[Apples]]
+[[Green Oranges]]
+
+**** Apples
+***** Green Apples
+***** Red Apples
+**** Oranges
+***** Green Oranges
+***** Yellow oranges

@@ -1,0 +1,140 @@
+
+* Kubernetes
+
+** Timeline
+
+Session 1, 2, 3, 4, 5, 6, 7, 8
+Session 1
+Nov 3, 2022
+https://www.youtube.com/watch?v=VnvRFRk_51k&ab_channel=TechWorldwithNana
+
+Session 2
+Nov 4, 2022
+https://www.youtube.com/watch?v=X48VuDVv0do&ab_channel=TechWorldwithNana
+
+Session 3
+Nov 8, 2022
+
+Session
+
+** Basics
+*** what is kubernetes
+container orchestration platform for deploying, managing and analyzing containers.
+written in go
+
+developed by google for managing container based deployment which gained traction due to microservice architecture with large no of services
+deployed.
+
+manage 100s to 1000s of container application in different environments
+
+we can have N master and M worker
+
+masters are resposible for managing workers which run applications.
+
+**** Master
+
+- api server
+  container, entry point of kubernetes cluster
+  UI, API, CLI will talk to api server
+- controller manager
+- scheduler
+  deploys container in worker node
+- etcd
+  Key-value store for whole cluster responsible for backup/restore
+
+Virtual network
+
+**** Worker
+
+- kublet (communication, running application)
+  N no of docker containers can run
+
+- pod
+  abstraction layer over containers
+  per application 1 pode which runs more than 1 container of application.
+  each pod have its own IP address
+  - ephemeral components so they can die. when gets recreated they get new IP.
+    so communication happens via service.
+    service
+    - IP adddress
+    - load balancer
+
+
+*** main k8s components
+- node and pod
+  abstraction over a container.
+  so replacement can be done with docker, kvm or any contaienization tech
+
+  1 application / pod
+
+  1 db | IP_A
+  1 app server | IP_B
+
+  each pod get ip address
+  IP_A and IP_B are used for communication
+
+- service
+  due to ephemeral nature of pods and reassigment of IP address service are used.
+
+  1 db | service
+  1 app server | service
+
+  service are of types external, internal
+  external for public facing and internal for private containers.
+
+  also act has load balancer
+
+- Ingress
+  forward DNS to IP address
+  to have readable DNS for ip address, is used
+
+- configmap and secret
+
+  lets say we want to connect to some api in our application and that changes.
+  one way to change it to update the config files in build app image, push it
+  to repo and run it in pod but thats a tedious job.
+
+  what we can do is leverage configMap to store these sort of details and then
+  use configmap service in pod to get those values.
+
+  secret is like configmap but its for sensitive data like passwords, keys etc.
+
+- volumes
+
+  if we run db and restart it the data will be gone.
+  for persisting data like for logs, db we use volumes which attaches pod to the data
+  external storage, which might be local storage, remote outside of k8s cluster.
+
+  *k8s dont manage data persistance*
+
+- Deployment and statefulset
+
+  we dont deploy pods but a blueprint of application called deployment.
+  it has configuration which specifies replicas so if 1 replica goes down
+  other can handle the requests, the service is talking to multiple replicas
+  and act as a load balancer. this way application can scale as well be available.
+
+  deployment is used for deploying stateless applications.
+
+  Statful applications like databases cannot be deployed using this strategy
+  because they will run into data inconsistency as when handling requests
+  because the synchonization is not happening between the persistance layer of
+  multiple pods.
+  To solve this problem we have Stateful set to deploy stateful applications.
+  *Deploying Stateful Applications using StatefulSet is difficult and often run ouside K8s Cluster*
+
+
+
+*** k8s architecture
+*** minikube and kubectl
+*** main kubectl commands - k8s CLI
+*** K8s YAML Configuration file
+*** Hands on Demo
+** Advanced
+*** K8s Namesspaces - organizer your components
+*** k8s ingress
+*** Helm - package manager
+*** Volums - pesisting in k8s
+*** K8s statefulset - deploment stateful apps
+*** k8s services typs for different usecases
+

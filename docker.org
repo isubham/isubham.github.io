@@ -1,0 +1,270 @@
+
+* Docker
+** What is Docker? what is contaienr
+*** What is a container
+- a way to package application with all the dependencies
+- portable artifact
+
+The area where containers are stored
+Container Repository
+- private repo
+- public repo (dockerhub)
+
+**** How container improved application development
+
+for developing application individual services needs to be added in host machine
+which mighe be different for different applications.
+
+after that
+we can have our
+- own isolated environment
+- consistent application development
+
+***** applicaiton deployment
+developer
+- application binary with instructions, databases with instructions
+
+operations
+- install service with external dependencies
+- conflict in dependencies
+- miscommunication  due to textual nature of instructions
+
+After Containers
+developer and operation work together to create docker env
+No configuration on server except docker runtime
+
+*** What is container
+- layer of images
+- and base layer is linux (mostly alpine)
+
+----------------
+application layer (postgres)
+------------
+------------
+------------
+Linux Base Image
+
+*** Image Vs Container
+artifact
+
+running the image is container
+
+** Docker vs Virtual Machine
+operating system has 2 components
+- application
+- kernel
+
+virutal machine abstract both components application as well as kernel
+so they are intensive to run
+
+container use the kernel of host operating system and that and only include
+application layer along with dependencies.
+
+
+
+** Docker installation
+already done
+** Commands
+
+*** contaienr Vs image
+container = running image 
+
+container = filesystem, environemnt configs, application image, port 
+
+- virtual file system
+- port: talk to appln. inside container
+- application image - redis
+
+docker pull redis
+docker run redis
+
+docker ps
+can be used to check the containers
+C -c to kill it
+
+to start in *detached mode*
+*docker run -d redis*
+
+if some application that we are running crashed
+we can stop that and start it again to do that
+
+using docker ps command to get Container ID 
+
+*docker stop <container id>*
+
+*docker start <container id>*
+
+well remembering the container id might be a pain if we stopped it
+and started looking for it again after some time
+
+*docker ps -a* will give all the container - stopped as well as running.
+
+*docker run* will do contitional pull and start.
+
+
+*** Binding container ports to host ports
+when we run containers, it runs on a port and that port is container port
+and we cannot access it via that port
+
+for example.
+redis runs on 6379 and that port,
+and if we run it again of different version the sample port will get used
+it is possible because its container's port and that's why it can run on same
+port.
+to attach it to a host's port what we can do is specify host port when we run a container.
+
+i.e.
+
+docker run -p<host_port>:<container_port> -d image:version
+
+#+BEGIN_SRC sh
+
+docker run -p6000:6379 -d redis
+
+docker run -p6000:6379 -d redis:4.0 # this will not work, conflict with host port
+
+docker run -p6001:6379 -d redis:4.0 # this will work
+
+
+#+END_SRC
+
+
+** Debugging a container
+
+Specifying name while running container
+
+*docker run -d -p6001:6379 --name redis_latest_6001 redis*
+
+
+accessing the terminal
+
+*docker exec -it redis_latest_6000 /bin/bash*
+
+
+** Developing with Container
+
+Running MongoDB
+*docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongodb --net anime_media_network mongo
+
+Running MongoDB Express
+docker run -d \
+-p 8081:8081 \
+-e ME_CONFIG_MONGODB_ADMINUSERNAME=admin \
+-e ME_CONFIG_MONGODB_ADMINPASSWORD=password \
+--net anime_media_network \
+--name mongo_express \
+-e ME_CONFIG_MONGODB_SERVER=mongodb \
+mongo-express
+
+
+we can connect our node.js app to other docker contaiener like mongodb
+and build out the application
+
+
+** Docker compose - Running multiple Service
+Running multiple containers cab be tedious at times when we have
+multiple docker containers with additional steps.
+
+Docker compose lets us record the multi container setup through a yaml
+file
+
+docker-compose comes preinstalled with docker.
+
+docker-compose -f <yaml file> up | down
+
+#+BEGIN_SRC yaml
+version: 3.0
+services:
+  mongodb:
+    image: mongo
+    ports:
+    - 27017:27017
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=admin
+    - MONGO_INITDB_ROOT_PASSWORD=password
+  mongo_express
+    image: mongo-express
+    ports:
+    - 8081:8081
+    environment:
+    - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+    - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+    - ME_CONFIG_MONGODB_SERVER=mongodb \
+
+the network is automatically created.
+
+
+
+#+END_SRC
+
+** Dockerfile
+
+base image to start off
+
+FROM <> # base image
+
+ENV <>=<>
+
+RUN <linux command>
+
+COPY <host_location> <image_location>
+
+CMD ["command", "file"] # only one cmd command which is entrypoint of server
+
+WORKDIR <container location>
+
+
+build docker image
+
+docker build -t name:tag <location of docker file> .
+
+deleting images
+
+docker rmi <imageId>
+
+docker rm <contaienrId>
+
+
+** private docker Repos
+
+Steps to work
+login in the aws ecr 
+docker login
+build image
+push image
+
+*Image naming concept*
+registryDomain/image:tag
+so for pulling
+docker pull registryDomain/image:tag
+
+
+** Deploying the containerized group
+
+*IMPORTANT*
+when using containerized app, we need to change the connection string
+of mongodb from ip address to the container name.
+
+
+** Volumes Demo
+
+for persistence in containers
+
+a directory in host FS is mounted in container FS
+
+Volume Types
+
+docker run
+
+1. host volume
+-v host_directory:container_directory
+
+
+2. anonymous volume
+-v contaienr_directory
+internally host volume will be managed by docker
+/var/lib/docker/volumes/random-hash/_data
+
+
+3. named volume
+-v name:container_directory

@@ -1,0 +1,146 @@
+
+* Node.js
+
+** Why Node.js
+7th nov 2022
+why Ryan Dahl created it. i think it was from a company called Joyent
+
+maybe he wanted to integrate js in server side unheard of that time.
+
+or maybe he thought event driven architecture can be made accessible to server using V8.
+
+why not use nginx as a reverse proxy and underneath that use any technology like java, php?
+
+Ryan Dahl: Node.js
+
+https://www.youtube.com/watch?v=EeYvFl7li9E
+
+
+
+
+
+** Bulk Update
+
+#+begin_src javascript
+
+async functionsetItemStatusToLabelledByOrderItemId(orderItemIds: Array<any>) {
+constupdate_query ="UPDATE items SET item_status='Labelled' WHERE order_items_id in (?) and (item_status='Pending' or item_status='requires_relabelling')"
+awaitpromiseAuthPool.query(update_query, [orderItemIds.map(e=>e)])
+}
+
+#+end_src
+
+** Spead Operator with aliasing
+
+#+begin_src javascript
+const r = {a:1, b:2}
+const {a:c, b:d} = r
+
+c // 1
+d // 2
+#+end_src
+
+** [[https://www.smashingmagazine.com/2020/04/nodejs-internals/][Exploring Node.js Internals - Smashing Magazine]]
+
+```jsx
+afterEach(() => {
+    })
+
+    it('with no env should return error', () => {
+      // mock env and give it some random value
+
+      const stub = sinon.fake(currentEcomm).bind(() => 'someEcomm')
+      console.log(currentEcomm())
+      try {
+        const service = getService()
+        console.log(service)
+        expect(service).to.not.have.own.property('getProductByStoreHash')
+        expect(service).to.not.have.own.property('updateProductDescription')
+        expect(service).to.not.have.own.property('getProduct')
+      }
+      catch(e)
+      {
+        // expect(e).is.instanceOf(Error)
+        expect(e.message).is.an.instanceOf(Error)
+      }
+
+    })
+```
+
+** JEST ESM Modules tests
+
+```jsx
+node --experimental-vm-modules node_modules/jest/bin/jest.js
+```
+
+** Download image
+
+```jsx
+import axios from "axios";
+
+export const getImageFromUrl = async (imageUrl) => {
+    const response = await axios.get(imageUrl, { responseType: "arraybuffer" })
+    return response.data
+};
+```
+
+** Input Validation using express validator
+
+#+begin_src bash
+npm install express-validator
+#+end_src
+
+
+#+begin_src javascript
+
+// controller.js
+import { validateOutput } from '../utils/validator.js';
+import validator from 'express-validator';
+
+const { validationResult } = validator;
+
+
+const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(422).json({ errors: errors.array() });
+            return;
+        }
+
+// validator.js
+import validator from 'express-validator';
+import _ from 'lodash';
+import { sendResourceNotFoundErrorResponse } from './error-response-sender.js';
+
+const { check, body, param, query } = validator;
+export const validateInput = (method) => {
+    switch (method) {
+        case 'getAllOrders': {
+            return [
+                param('tenantId', 'tenantId doesn\'t exists').exists()
+            ];
+        }
+        case 'updateOrder': {
+            return [
+                param('tenantId', 'tenantId doesn\'t exists').exists(),
+                param('orderId', 'orderId doesn\'t exists').exists(),
+                body('platformProductIdList', 'platformProductIdList cannot be expty').exists()
+            ];
+        }
+        case 'updateOrderWebhook': {
+            return [
+                check('reqId', 'reqId doesn\'t exists').exists(),
+                body('orderId', 'orderId doesn\'t exists').exists(),
+                body('status', 'status doesn\'t exists').exists(),
+                body('productId', 'productId doesn\'t exists').exists(),
+                body('wiId', 'wiId doesn\'t exists').exists(),
+            ];
+        }
+}
+
+#+end_src
+
+** Testing
+
+Mocking
+https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
+https://www.youtube.com/watch?v=Af4M8GMoxi4

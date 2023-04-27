@@ -1,0 +1,55 @@
+# Http
+
+1990s CERN
+A young scientist Tim Berners Lee was working at CERN? 
+
+# WHY????????????????
+when was it developed?
+what problems were he facing at that time?
+what were the existing solutions back then?
+why did he developed HTTP?
+
+Well internet came and with it we had lots of computer connected to it and only way we use to transfer 
+information was Email.
+
+the main users were esentially university and their students, businesses and their workflow
+
+
+# Solution
+==========
+Hypertext transfer protocol was a protocol initally developed by Tim Berners Lee on 1990s.
+
+it consisted of a 
+1. http server
+2. http client
+3. html
+
+## HTTP/1.0
+first version of HTTP works on top of TCP as underlying transport layer protocol.
+
+So client connects to server using TCP hanshake. a TCP connection is 
+established which is a persistent, duplex connection. 
+
+Client will try to access some URI, which is uniform resource identifier.
+
+Q. explain URL and URI?
+
+HTML is basically a object, DOM. it can have nested object like images, scripts, css etc.
+
+for every nested object the client will again a TCP connection and get the resource from
+server.
+
+This can lead to lots of TCP connections for single webpage.
+
+
+## HTTP/1.1
+
+it introduced utilizing single connection for fetching multiple objects and they all can 
+be requested parallely (pipeling)
+
+## HTTP/2.0
+
+multiplexing was introduced which improved the perceived latency of 
+loading the webpage.
+what happens is the requests was interweived in a single frame so does the response 
+

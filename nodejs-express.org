@@ -1,0 +1,224 @@
+* Express
+
+#+begin_src js
+
+  console.log("hello wordld");
+
+#+end_src
+
+#+RESULTS:
+: hello wordld
+: undefined
+
+** Express Routing & Middleware
+
+#+begin_src js
+
+  import express from 'express';
+  import {JsBin} from './db.js';
+
+
+  const dbReadKey = process.env.JSBIN_ACCESS_KEY
+		  || "$2b$10$ZT0hO3hBks9DS34Q/wljm.iRbwDGm91hSrvhP9WqHGE6dU13bZt.u";
+  const db = new JsBin(dbReadKey);
+
+  const app = express();
+
+  let todos = [
+      { id: 1, isComplete: true, name : 'do sometgin'},
+      { id: 2, isComplete: true, name : 'do sometgin'},
+      { id: 3, isComplete: false, name : 'do sometgin'},
+      { id: 4, isComplete: false, name : 'do sometgin'},
+      { id: 5, isComplete: false, name : 'do sometgin'},
+  ]
+
+  const constants = {
+	  DB_READ_KEY: process.env.JSBIN_ACCESS_KEY
+  };
+
+#+end_src
+
+** middleware,
+
+      middleware are functions that called before the routing,
+      has access to req, res and next.
+      next() must be called or else the route handlers won't get called and client will timeout
+      app.use() need to be called to enable the middleware
+ [x] next,
+  calls the next middleware
+
+ #+begin_src js
+
+   const logger = (req, res, next) => {
+	   req.id = new Date();
+       console.log('logger | requestId', req.id);
+	   next();
+   }
+
+   app.use(logger);
+#+end_src
+
+** Route Handlers
+
+ we can have
+ app(routeString, handler1(req, res))
+ app(routeString, middleware(req, res, next), handler2(req, res))
+ app(routeString, middleware(req, res, next), , , handler2(req, res))
+ app(routeString, [middleware(req, res, next), handler2(req, res)])
+
+
+ #+begin_src js
+
+app.get('/', rootInputHandler, rootController, rootOutputHandler);
+app.get('/array', [rootInputHandler, rootController, rootOutputHandler]);
+app.get('/partialarray', rootInputHandler, [rootController, rootOutputHandler]);
+
+#+end_src
+
+** Query Parameters
+
+req.query gives us access to query parameters
+
+#+begin_src js
+
+  app.get('/ml/random/', rootInputHandler, (req, res) => {
+	  const min = parseInt(req.query.min);
+	  const max = parseInt(req.query.min);
+	  console.log(max)
+	  res.send({ num: (min + max) / 2})
+  });
+
+#+end_src
+
+** Express.Router
+
+this gives a mini-app, modular way to organize resources.
+- can also have middleware which deals with only its routes
+
+#+begin_src js
+
+const pdfRouter = express.Router();
+
+pdfRouter.use((req, res, next) => {
+	console.log("pdfRouter | middleware");
+	next();
+});
+
+#+end_src
+
+** Route parameters
+
+ [x] path,
+'/:name/ can be accesed via req.params will have obj {name: name in url}
+to download it using curl
+curl -o {your_file_name} url
+
+
+#+begin_src js
+
+  pdfRouter.get('/:name', rootInputHandler, (req, res) => {
+	  res.download(`pdf/${req.params.name}`)
+  });
+
+#+end_src
+
+** Response Object
+
+- json
+- send
+- sendStatus
+- download
+- redirect
+
+
+#+begin_src js
+
+  app.get('/v1/:name', rootInputHandler, (req, res) => {
+	  res.redirect(`../../pdf/${req.params.name}`)
+  });
+
+  app.use('/pdf', pdfRouter);
+
+  app.get('/gf/', rootInputHandler, (req, res) => {
+	  res.sendStatus(404)
+  });
+
+#+end_src
+
+** storing them in a jsonbin
+
+#+begin_src js
+
+  app.get('/waifu/', rootInputHandler, async (req, res) => {
+	  const binName = '63353f49e13e6063dcb9c0a8';
+	  const waifus = await db.readBin(binName);
+	  res.send(waifus);
+  });
+
+#+end_src
+
+** MIDDLEWARE
+** route level middleware
+
+#+begin_src js
+
+  const isValid = () => parseInt(Math.random() * 10) % 2 == 0;
+
+  function rootInputHandler(req, res, next) {
+	  console.log("routeInputHandler middleware", req.id);
+
+	  if (isValid()) {
+		  next()
+	  }
+	  else {
+		  console.log('routeInputHandler | invalid input');
+		  res.send('invalid input');
+	  }
+  }
+
+  function rootController (req, res, next) {
+	  console.log("route controller ", req.id);
+      req.data = {'message': 'hello world'};
+	  next();
+  }
+
+#+end_src
+
+** built in middleware
+
+ * - express static serve as a FTP server
+
+#+begin_src js
+
+  const staticOptions = {
+		  "index": true,
+		  "extensions": ["html", "pdf"]
+  };
+  app.use("/web/", express.static("public", staticOptions));
+  app.use("/doc/", express.static("pdf", staticOptions));
+
+  // express.json middleware to parse json payload
+
+  app.use(express.json({limit:"1mb"}));
+
+#+end_src
+
+
+
+/*
+ * Response Object
+ * ===============
+ *
+ * */
+
+
+#+begin_src js
+
+  const port = 8080;
+
+  app.listen(port, () => {
+	  console.log('server listening on port', port);
+  });
+
+#+end_src
+

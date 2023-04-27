@@ -1,0 +1,40 @@
+
+* Git
+** Clean working directory
+
+git reset --hard HEAD
+
+ForSourceCode1@
+
+** configuring user name and email for repo or global
+
+For just one repo:
+
+#+begin_src bash
+git config user.name "Your Name Here"
+git config user.email your@email.com
+#+end_src
+
+
+
+--- zeeve
+git config user.name "subham.kumar"
+git config user.email subha.kumar@zeeve.io
+
+For (global) default email (which is configured in your ~/.gitconfig):
+
+#+begin_src bash
+git config --global user.name "Your Name Here"
+git config --global user.email your@email.com
+#+end_src
+```
+
+git config user.name "isubham"
+git config user.email subhakumarchandrawansi@gmail.com
+
+
+** cloning nested repo after cloning root
+
+#+begin_src bash
+git submodule update --init
+#+end_src

@@ -1,0 +1,404 @@
+
+* React
+** Object Destructuring
+
+#+begin_src javascript
+
+// in react components props can be destructured at method parameter level
+// React component names must be capitalized.
+const GreetingMessage  = ({message, from}) =>  {
+
+    return (
+        <div>
+            <h3>{from}</h3>
+            <p>{message}</p>
+        </div>
+    )
+
+}
+export default GreetingMessage;
+
+#+end_src
+
+** Rendering Arrays
+
+#+begin_src javascript
+
+<ul>
+  {notes.map((note, i) =>
+    <li key={i}>
+      {note.content}
+    </li>
+  )}
+</ul>
+// not recommended and can create undesired problems
+// even if it seems to be working just fine.
+// use id of entities
+
+#+end_src
+
+** Promises
+
+**The promise is pending: It means that the final value (one of the following two) is not available yet.**
+
+**The promise is fulfilled: It means that the operation has completed and the final value is available, which generally is a successful operation. This state is sometimes also called resolved.**
+
+**The promise is rejected: It means that an error prevented the final value from being determined, which generally represents a failed operation.**
+
+** Effect-hooks
+
+**We have already used [state hooks](https://reactjs.org/docs/hooks-state.html) that were introduced along with React version [16.8.0](https://www.npmjs.com/package/react/v/16.8.0), which provide state to React components defined as functions - the so-called functional components. Version 16.8.0 also introduces the [effect hooks](https://reactjs.org/docs/hooks-effect.html) as a new feature. As per the official docs:**
+
+> The Effect Hook lets you perform side effects in function components. Data fetching, setting up a subscription, and manually changing the DOM in React components are all examples of side effects.
+
+#+begin_src javascript
+
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Note from './components/Note'
+
+const App = () => {
+  const [notes, setNotes] = useState([])
+  const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
+
+	useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/notes')
+      .then(response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+  }, [])
+  console.log('render', notes.length, 'notes')
+	// ...
+}
+
+#+end_src
+
+** Initializing data from API
+
+#+begin_src javascript
+// your action.js file
+/// //////////////////////
+export const initializeNotes = () => {
+  return async dispatch => {
+    const notes = await noteService.getAll()
+    dispatch({
+      type: 'INIT_NOTES',
+      data: notes,
+    })
+  }
+}
+
+export const createNote = content => {
+  return async dispatch => {
+    const newNote = await noteService.createNew(content)
+    dispatch({
+      type: 'NEW_NOTE',
+      data: newNote,
+    })
+  }
+}
+
+// component file
+//////////////////
+useEffect(() => {
+    dispatch(initializeNotes())
+  },[dispatch])
+
+
+#+end_src
+
+props.children
+
+** Unit Testing
+
+[Organizing Tests in Jest](https://medium.com/@JeffLombardJr/organizing-tests-in-jest-17fc431ff850)
+
+#+begin_src bash
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+#+end_src
+
+#+begin_src js
+
+import { render } from "@testing-library/react";
+import Chat from "./chat";
+
+test('should render person and image of chat', () => {
+
+    const person = {"id": 1, "person": "about",
+        "imageSrc": "https://static.thenounproject.com/png/2940537-200.png"};
+
+    const chatComponent = render(<Chat person={person.person} imageSrc={person.imageSrc}
+        onClick={() => console.log('hello')} />);
+
+    const personName = chatComponent.container.querySelector(".person-name");
+
+    expect(personName).toHaveTextContent('about');
+
+
+})
+
+#+end_src
+
+** Handling Click Handlers
+
+#+begin_src js
+
+import { render, fireEvent } from "@testing-library/react";
+
+test('should have click handler called upon clicking', () => {
+
+		// arrange
+    const person = {"id": 1, "person": "about",
+        "imageSrc": "https://static.thenounproject.com/png/2940537-200.png"};
+
+
+    const mockHandler = jest.fn();
+    const chatComponent = render(<Chat person={person.person} imageSrc={person.imageSrc}
+        onClick={mockHandler} />);
+
+
+	  // act
+		const personName = chatComponent.container.querySelector(".person-name");
+		fireEvent.click(personName);
+
+		// assert
+    expect(mockHandler.mock.calls).toHaveLength(1);
+
+})
+#+end_src
+
+** Test Coverage
+
+CI=true npm test -- --coverage
+
+## E2E Testing using Cypress
+
+```jsx
+npm install --save-dev cypress
+npm install eslint-plugin-cypress --save-dev
+
+npm run cypress:open
+
+```
+
+```jsx
+describe('app', function() {
+
+    it('front page can be opened', function() {
+      **cy.visit('http://localhost:3000')
+      cy.contains('subham')**
+      cy.contains('Hello Everyone')
+    })
+
+    it('checking button clicked ', function() {
+      cy.visit('http://localhost:3000')
+      **cy.get('#clicker').click()**
+      cy.contains('button clicked')
+
+    })
+
+    it('filling form', function() {
+       cy.visit('http://localhost:3000')
+       **cy.get('input').type('hello world from cypress')**
+
+    })
+
+  })
+
+```
+
+```jsx
+cy.request('POST', 'http://localhost:3001/api/login', {
+      username: 'mluukkai', password: 'salainen'
+    }).then(response => {
+      localStorage.setItem('loggedNoteappUser', JSON.stringify(response.body))
+      cy.visit('http://localhost:3000')
+    })
+```
+
+```jsx
+debugger()
+```
+
+running cypress from cli
+
+**`"test:e2e": "cypress run"`**
+
+## State management with Redux
+
+[Fullstack part6 |](https://fullstackopen.com/en/part6/flux_architecture_and_redux)
+
+[Fundamentals of Redux Course from Dan Abramov](https://egghead.io/courses/fundamentals-of-redux-course-from-dan-abramov-bd5cc867)
+
+## PropTypes
+
+to enforce type to components which will be passed in props PropTypes package can be used.
+
+```jsx
+import PropTypes from 'prop-types'
+
+const LoginForm = ({
+   handleSubmit,
+   handleUsernameChange,
+   handlePasswordChange,
+   username,
+   password
+  }) => {
+    // ...
+  }
+
+LoginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleUsernameChange: PropTypes.func.isRequired,
+  handlePasswordChange: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
+}
+```
+
+## Testing React apps
+
+Mocking module functions
+
+```bash
+import { shuffleVert } from 'matrix';
+const shuffleVertRef = {
+    shuffleVert
+};
+let spyShuffleVert;
+
+beforeEach(() => {
+    spyShuffleVert = jest.spyOn(shuffleVertRef, "shuffleVert");
+}
+
+afterEach(() => {
+    jest.clearAllMocks();
+}
+
+it('should shuffle the rows of the entire matrix with no argument for columns', () = {
+    let srcMatrix = [
+        { number: 1, word: 'one' },
+        { number: 2, word: 'two' },
+        { number: 3, word: 'three' }
+    ];
+
+    shuffleVert(srcMatrix);
+    expect(spyShuffleVert).toHaveBeenCalledTimes(2);
+}
+```
+
+## react hooks
+
+[React Hooks Tutorial](https://www.robinwieruch.de/react-hooks)
+
+React-router-Dom
+
+Redux
+
+React-Redux
+
+Jest
+
+## Gatsby
+
+```bash
+npm install -g gatsby-cli
+gatsby new portfolio
+
+```
+
+gastsy-link → for link
+
+react-helmet → for head info
+
+```bash
+gastsy develop
+
+```
+
+
+#+begin_src js
+
+export const redirectTo404 = (locale = 'en-sg') => {
+  window.location = `${window.location.origin}/${locale}/404`
+}
+
+import { redirectTo404 } from 'utils/redirectTo404'
+
+describe('redirectTo404', () => {
+  global.window = Object.create(window)
+  const url = 'http://localhost/'
+  Object.defineProperty(window, 'location', {
+    value: {
+      origin: url
+    },
+    writable: true
+  })
+  test('should redirect', () => {
+    expect(window.location.origin).toBe('http://localhost/')
+    redirectTo404('en-sg')
+    expect(window.location).toBe('http://localhost//en-sg/404')
+  })
+})
+
+#+end_src
+
+** Absolute imports in react
+
+[Absolute imports with Create React App](https://medium.com/hackernoon/absolute-imports-with-create-react-app-4c6cfb66c35d)
+
+** Next.JS
+
+[Lee Robinson - Developer, writer, creator.](https://leerob.io/)
+
+[https://www.youtube.com/watch?v=mTz0GXj8NN0](https://www.youtube.com/watch?v=mTz0GXj8NN0)
+
+** Conference
+
+[Conferences - React](https://reactjs.org/community/conferences.html)
+
+[https://conf.reactjs.org/stage](https://conf.reactjs.org/stage)
+
+** Confifuring JEST For ESM Modules based repos
+
+configure jest for you Node.js backend project, lambdas for ESM based repos
+
+1. Installation
+
+#+begin_src bash
+npm install jest
+#+end_src
+
+2. setting up jest.config.json
+
+#+begin_src json
+{
+    "transform": {}
+}
+#+end_src
+
+this will not transform your source code which is helpful if you are mocking your dependencies while writing unit tests. https://stackoverflow.com/questions/64582674/jest-mock-of-es6-class-yields-referenceerror-require-is-not-defined
+
+3. Test Scripts
+
+#+begin_src bash
+
+{
+"scripts": {
+    "test-watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+}
+#+end_src
+
+Why --experimental-vm-modules?
+[Official Doc](https://jestjs.io/docs/ecmascript-modules)
+
+4. Testing specific files
+
+```bash
+npm run test-watch src/get-file/index.test.js
+```

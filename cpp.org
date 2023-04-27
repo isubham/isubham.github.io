@@ -1,0 +1,139 @@
+* Task [1/1]
+** DONE Can i do literate programming in cpp
+
+in windows on linux install compiler collection and
+M-x customize-variable org-babel-load-languages
+and add the C language (capital "C", which gives access to C, C++, D)
+
+
+yes, https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-C.html
+
+#+BEGIN_SRC C++
+
+  #include <iostream>
+
+  int main() {
+
+  std::cout << "hello world";
+  return 0;
+
+  }
+
+
+#+END_SRC
+
+#+RESULTS:
+: hello world
+
+
+** TODO learn basic IO  
+
+#+BEGIN_SRC C++
+
+  #include <iostream>
+
+  int main() {
+
+  int age = 200;
+  std::cout << age << "\n";
+  std::cout << age;
+  return 0;
+
+  }
+
+
+#+END_SRC
+
+#+RESULTS:
+| 200 |
+| 200 |
+
+
+** Integer Datatype
+
+#+BEGIN_SRC C++
+
+  #include <iostream>
+
+  int main() {
+
+  unsigned int maxValue = 1;
+  int counter = 1;
+  while (maxValue > 0) {
+    maxValue = maxValue * 2;
+    std::cout << "i " << counter++ << " " << maxValue << "\n";;
+  }
+  return 0;
+
+  }
+
+
+#+END_SRC
+
+#+RESULTS:
+| i |  1 |          2 |
+| i |  2 |          4 |
+| i |  3 |          8 |
+| i |  4 |         16 |
+| i |  5 |         32 |
+| i |  6 |         64 |
+| i |  7 |        128 |
+| i |  8 |        256 |
+| i |  9 |        512 |
+| i | 10 |       1024 |
+| i | 11 |       2048 |
+| i | 12 |       4096 |
+| i | 13 |       8192 |
+| i | 14 |      16384 |
+| i | 15 |      32768 |
+| i | 16 |      65536 |
+| i | 17 |     131072 |
+| i | 18 |     262144 |
+| i | 19 |     524288 |
+| i | 20 |    1048576 |
+| i | 21 |    2097152 |
+| i | 22 |    4194304 |
+| i | 23 |    8388608 |
+| i | 24 |   16777216 |
+| i | 25 |   33554432 |
+| i | 26 |   67108864 |
+| i | 27 |  134217728 |
+| i | 28 |  268435456 |
+| i | 29 |  536870912 |
+| i | 30 | 1073741824 |
+| i | 31 | 2147483648 |
+| i | 32 |          0 |
+
+
+** Long Datatype
+
+for long long long
+c:/Users/subha/AppData/Local/Temp/babel-yyypIB/C-src-XIvHAW.cpp: In function 'int main()':
+c:/Users/subha/AppData/Local/Temp/babel-yyypIB/C-src-XIvHAW.cpp:13:11: error: 'long long long' is too long for GCC
+   13 | long long long maxValue = 1;
+      |           ^~~~
+Access is denied.
+
+#+BEGIN_SRC C++
+
+  #include <iostream>
+
+  #include <stdint>
+
+  int main() {
+
+  uint_32 maxValue = 1;
+  int counter = 1;
+  while (maxValue > 0) {
+    maxValue = maxValue * 2;
+    std::cout << "i " << counter++ << " " << maxValue << "\n";;
+  }
+  return 0;
+
+  }
+
+
+#+END_SRC
+
+#+RESULTS:
+

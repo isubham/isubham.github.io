@@ -1,0 +1,8 @@
+
+* AWS Lambda
+
+workflow
+
+[https://www.youtube.com/watch?v=DA3hlLxTl-8](https://www.youtube.com/watch?v=DA3hlLxTl-8)
+
+[AWS Serverless Application Model - Amazon Web Services](https://aws.amazon.com/serverless/sam/)

@@ -8,7 +8,7 @@
 
 ** Tools i Use
 🔥 🌊 🪨 🌪 ⚪
-wake up and after my morning routine, i open my [[file:smartphone.html][smartphone's]] and *call* X.
+wake up and after my morning routine, i open my [[file:smartphone.html][smarthpone's]] and *call* X.
 then listen to some *mp3* or *flac*, or *stream* it on Spotify.
 
 come back and after doing some daily chores
@@ -20,4 +20,32 @@ connect it to *internet* with *wifi* and open *web browser* to check *email*
 write some *code* in some *text editor* or *IDE*
 Generally i use *Node.js*. these *server* interact with other servers like *Databse*, *Message Queues*, etc.
  
----
+I and 26, so i am also looking for partner and they ask for [[./biodata.html][biodata]]
+
+Recently i want to know about few countries, for starters
+the sequence might depend on the BFS or the way wave travel when we drop something in water.
+
+- Bharat (my own country)
+- China
+- Japan
+- South Korea
+- Thailand
+- Singapore
+- Russia
+- Sweden
+- Germany
+- Norway
+- Denmark
+- Finland
+- UK
+- France
+- USA
+
+How to know about a country, A day in the life of a <> which will give an idea about what it is now,
+food, language, economy 
+
+Country is people which which can be grouped  linguistically, geographically, economically, age groups.
+They can be known by their occupation, food, places.
+
+I recently wanted to learn about c++ mainly because i want to understand what goes in in node.js v8 part.
+i want to write some low level stuff as i am not well versed in that.

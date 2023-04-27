@@ -1,0 +1,140 @@
+
+* Enterpreneurship
+** gym companion
+
+### **MileStone 1**
+
+**User**
+
+/signin
+
+September 6, 2022 google login
+
+/signup
+
+**Gym**
+
+add gym
+
+update gym
+
+map gym
+
+**Attendence**
+
+add attendence
+
+View attendence
+
+**Payments**
+
+CreateInvoice
+
+CreateBill
+
+### Milestone 2
+
+**Plan**
+
+add plan
+
+update plan
+
+**Progress**
+
+add progress photo
+
+add body measurements
+
+** Enterpreneurship Course by LaunchX
+*** Mission
+**** 18Oct 2022
+***** Team Launch
+
+- values and motivations
+  why work on this project. what aspect of a project motivates you.
+
+  for example -> when we started our first project trinetra. we wanted to work
+  because there was a potential that it will get deployed on ranchi office, when
+  that didn't happened. we just drifted to another. having our product deployed
+  was the motivation.
+
+- company vision
+  what the team members think about the company. what it will do?
+
+  for example -> when we started pitavya, we wanted to work with govt. but later on
+  we decided to develop our our unique product, we worked on a contact tracing app
+  for enclosed spaces, which didn't worked.
+
+- working styles
+  team members should inform about their work style in team settings and also
+  commitments outside of work as well.
+
+- roles and responsibilties
+  each member should be assigned their at the start or on ad hoc basis based on skills.
+
+*** Customer
+
+- case study by Bil Aulet on customer focus
+- different ways of market research
+- prepare and perform customer interviews
+- choosing customers
+
+**** 19th Oct 2022
+
+product start from customers so starting there is a good option, to find customer problems we need to do market research and from
+that we will do customer interviews and then make the offering.
+
+don't assume a problem and solve it later to find that either
+the product that you build is either wrong or the problem is not big of a deal
+
+Customer Interviews
+
+https://youtu.be/Js4qoQp1Emo
+
+increase the value of talking with the customer by
+listen more than talk
+asking how they are doing things now
+asking how they wanna do things
+asking what is stopping them
+dont lead them to your solution
+
+who you interview and how will you find them?
+write interview guide, few open questions to learn about their needs
+conduct interviews and write good notes
+
+**** 20th Oct 2022
+
+Methods of market research
+- Interviews and observation
+  early stage to know bring depth frustation and needs of user, and refine target customers for direct internet research and surveys more directed and valuable.
+- internet research
+  to help know the competition and size of market
+- surveys
+  to know key pointer for a product
+
+- How to Interview
+  - What NOT To Do
+    Don’t come into a customer interview feeling you have the answers. If your idea doesn't adjust at least some based on these conversations, you're not listening.
+    Don’t expect customers to have the answer. They'll know their frustrations and needs, but not necessarily how to solve it.
+    Do not sell! This is the time to learn, so do NOT mention your specific ideas for how to solve the problem.
+    Do not include friends and family in your interviews - you will not get as realistic perspective on the problems.
+
+  - What To Do
+    Focus on the need, not the solution!
+    Beware of confirmation bias — you are NOT there to validate what you think, you are there to uncover a need.
+    Do it in person, one at a time — this will allow you to pick up on cues from gestures and facial expressions.
+    Ask open-ended questions — this makes it a conversation and allows you to get to more depth of the need you may not have thought about before.
+    Get subjects to tell a story.
+    Listen much more than you talk!
+    Follow your nose and drill down (Why? Why?...).
+    Understand their priorities..
+
+
+afer market research sort the customer based on category, age, sex, spending habits.
+identify that one person who has the biggest unmet demand who is most likely willing to spend money on a solution.
+
+- try to extract a customer personna
+  sample persona
+    [[./dropwise-persona.png]]
+

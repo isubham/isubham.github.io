@@ -1,0 +1,64 @@
+
+* MongoDB
+** How and When Did MongoDB Get Started?
+
+The database has its roots in the frustrations of Dwight Merriman, Eliot Horowitz, and Kevin Ryan, who co-founded MongoDB in New York City in 2007 after they struggled to build web-scale applications for DoubleClick, one of the pioneers of digital advertising technology that eventually became a part of Google.
+
+The founders wanted to build a database that developers would love, a database that would break through the barriers in Relational Database Management Systems (RDBMS) that use the SQL query language.
+
+The Mongo part of MongoDB is a slice of the word humongous, hinting at the large amount of data that MongoDB can process.
+
+## Advantages
+
+### High Performance
+
+Due the scale out architecture (meaning small machines work together), it scales well, capabilities like sharding and replication is buillt in the database which lets you easily do that.
+
+### Flexibility
+
+The Document database allows for flexible schema  which is like a JSON where it can have other documents as values called Embedded documents, or they can be referenced by keys called indexed documents for better search capability.
+
+[https://www.youtube.com/watch?v=RGfFpQF0NpE](https://www.youtube.com/watch?v=RGfFpQF0NpE)
+
+Pros
+
+→ Horizontal Scaling
+
+→ Flexible Schema
+
+Cluster
+
+Table → collection
+
+Row → Document
+
+Column → Field
+
+** Installing/Starting MongoDb
+
+Just use docker image with admin and password.
+
+#+BEGIN_SRC
+
+import {MongoClient} from 'mongodb';
+
+const client = new MongoClient('mongodb://admin:password@localhost:27017');
+const dbName = 'anime_local';
+const col_intro = 'intro';
+
+async function getAllAnime(req, res) {
+        await client.connect();
+        var db = client.db(dbName);
+        console.log('connected to anime local db');
+        const collection = db.collection(col_intro)
+        const allIntros = await collection.find({}).toArray();
+        client.close();
+        res.send(allIntros);
+};
+
+export {getAllAnime};
+
+
+#+END_SRC
+
+

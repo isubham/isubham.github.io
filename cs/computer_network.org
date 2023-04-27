@@ -1,0 +1,11 @@
+* Computer Network
+
+** computer network and the internet
+
+*** network under attack
+
+Malware, Denial or service (vulnerability, bandwidth flooding, connection flooding)
+Packet Sniffing (reading the packets through an intermediary router, device)
+IP spoofing (faking source IP)
+
+*** 

@@ -31,3 +31,9 @@ Weight : 74
 
 [[file:img/me-black-shirt.jpeg]]
 
+[[file:img/me-red-kurta.jpeg]]
+
+[[file:img/me-black-tshit.jpg]]
+
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="css/style.css" />
