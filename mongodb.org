@@ -18,7 +18,6 @@ Due the scale out architecture (meaning small machines work together), it scales
 
 The Document database allows for flexible schema  which is like a JSON where it can have other documents as values called Embedded documents, or they can be referenced by keys called indexed documents for better search capability.
 
-[https://www.youtube.com/watch?v=RGfFpQF0NpE](https://www.youtube.com/watch?v=RGfFpQF0NpE)
 
 Pros
 

@@ -1,4 +1,8 @@
 ** OrgMode
+
+
+[[file:img/bateman.gif]]
+
 *** why org-mode?
 
  i use
