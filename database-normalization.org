@@ -1,0 +1,86 @@
+* Database Normalization
+
+A process which eliminates anomalies and helps with data integrity.
+
+there are several normal forms which helps to do that.
+
+consider for example
+
+Purchases1
+| customer__name | phone | customer__address | item_name         |      item price | item quanitity |
+|---------------+--------------+------------------+-------------------+-----------------+----------------|
+| AppleSoyboy   |         4000 | street 102, jh   | [ipad, macbook]   | [20000, 100000] |         [2, 1] |
+| LinuxChad     |         5000 | street 103, jh   | headphone 350     |            4000 |              1 |
+| LinuxChad     |         5000 | street 103, jh   | HP laptop charger |            3000 |              2 |
+
+if we want to update the address of
+suresh then it can happen that we only update the first one "headpones 350"
+and not "HP Laptop Charger One" so due to duplication of data of suresh
+in both order we would have to update every one of them and it
+can get missed this is _updation anomally_.
+
+if we want to delete the ramesh details, but that would also delete the order of ramesh
+as we only have 1 entry of him so this is deletion anomally in which deleting something
+results in deletion of unintended data.
+
+Normal forms
+
+*1st Normal Form*
+
+every field in the row should be atomic meaning no multi-values.
+
+we should be able to uniquely identify each row
+
+so by removing multivalue and addinng a primary key we have removed multi-values field as well as uniquely define each row.
+
+Purchases2
+| PurchaseID | customer_name | customer_phone | customer_address | item_name         | item_price | item_quantity | Purchase Amount |
+|------------+---------------+----------------+------------------+-------------------+------------+---------------+-----------------|
+|          1 | AppleSoyBoy   |           4000 | street 102, jh   | ipad              |      20000 |             2 |           41000 |
+|          2 | AppleSoyBoy   |           4000 | street 102, jh   | macbook           |     100000 |             1 |          110000 |
+|          3 | LinuxChad     |           5000 | street 103, jh   | headphone 350     |       4000 |             1 |            4300 |
+|          4 | LinuxChad     |           5000 | street 103, jh   | HP laptop charger |       3000 |             2 |            3200 |
+
+
+
+*2nd normal form*
+
+functional dependency
+
+composite keys should be only related to primary key 
+
+So, we can see in Purchases2 table that customer_name, customer_address is dependent on customer_phone
+so we can extract that in a separate relation,
+likewise, item price depends on item_name so that can also be extracted out in a separate relation and we have
+
+
+ Customers1
+| Customer_Id | customer_phone | customer_name | customer_address |
+|-------------+----------------+---------------+------------------|
+|  1          |           4000 | AppleSoyBoy   | street 102, jh   |
+|  2          |           5000 | LinuxChad     | street 103, jh   |
+
+Item1
+ | Item_Id | item              | item_price |
+ |---------+-------------------+------------|
+ |       1 | ipad              |      20000 |
+ |       2 | macbook           |     100000 |
+ |       3 | headphone 350     |       4000 |
+ |       4 | HP laptop charger |       3000 |
+
+Purchases3
+ | PurchaseID | customer_id | item_id | item_quantity | Purchase Amount |
+ |------------+-------------+---------+---------------+-----------------|
+ |          1 |           1 |       1 |             1 |           41000 |
+ |          2 |           1 |       2 |             1 |          110000 |
+ |          3 |           2 |       3 |             3 |            4300 |
+ |          4 |           2 |       4 |             2 |            3200 |
+
+ *3rd normal form*
+
+ should not have transitive functional dependency
+
+
+References :-
+
+- https://www.databasestar.com/database-normalization/

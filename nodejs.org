@@ -144,3 +144,29 @@ export const validateInput = (method) => {
 Mocking
 https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
 https://www.youtube.com/watch?v=Af4M8GMoxi4
+
+** Eventloop explained
+Node.js
+----------
+- single threaded
+- non blocking
+- IO
+- runtime
+
+
+C - compiled (src) -> (binary which can run on your machine 32-bit (x86) & 64bit (amd64) )
+- lexical analysis 
+- semantic and syntactic analysis
+- AST
+- linking iostream
+
+python - interpreted
+1. lexical analysic py -> list of token , check for syntax errors
+2. bytecode generation: token of python -> AST -> bytecode
+2. run int PVM python virtual machine.
+
+Node.js (server side JS)
+1. lexical analysis .js -> bytecode 
+    (v8 engine -> turbofan, ignition)
+2. execution in Javascipt VM (bytcode -> machinecode)
+    
