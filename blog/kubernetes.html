@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org94c2e80">Kubernetes</a>
+<ul>
+<li><a href="#org665cfee">Timeline</a></li>
+<li><a href="#org31d46df">Basics</a>
+<ul>
+<li><a href="#org168aed5">what is kubernetes</a></li>
+<li><a href="#org399adb1">main k8s components</a></li>
+<li><a href="#org0ca60c5">k8s architecture</a></li>
+<li><a href="#org795147f">minikube and kubectl</a></li>
+<li><a href="#orgdf18b64">main kubectl commands - k8s CLI</a></li>
+<li><a href="#org66d27eb">K8s YAML Configuration file</a></li>
+<li><a href="#org769ab46">Hands on Demo</a></li>
+</ul>
+</li>
+<li><a href="#org1da2714">Advanced</a>
+<ul>
+<li><a href="#org7d6aed2">K8s Namesspaces - organizer your components</a></li>
+<li><a href="#orgefbd397">k8s ingress</a></li>
+<li><a href="#org5e2b4c9">Helm - package manager</a></li>
+<li><a href="#org6982fa0">Volums - pesisting in k8s</a></li>
+<li><a href="#org469255b">K8s statefulset - deploment stateful apps</a></li>
+<li><a href="#org240b12d">k8s services typs for different usecases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org94c2e80" class="outline-2">
+<h2 id="org94c2e80">Kubernetes</h2>
+<div class="outline-text-2" id="text-org94c2e80">
+</div>
+<div id="outline-container-org665cfee" class="outline-3">
+<h3 id="org665cfee">Timeline</h3>
+<div class="outline-text-3" id="text-org665cfee">
+<p>
+Session 1, 2, 3, 4, 5, 6, 7, 8
+Session 1
+Nov 3, 2022
+<a href="https://www.youtube.com/watch?v=VnvRFRk_51k&amp;ab_channel=TechWorldwithNana">https://www.youtube.com/watch?v=VnvRFRk_51k&amp;ab_channel=TechWorldwithNana</a>
+</p>
+
+<p>
+Session 2
+Nov 4, 2022
+<a href="https://www.youtube.com/watch?v=X48VuDVv0do&amp;ab_channel=TechWorldwithNana">https://www.youtube.com/watch?v=X48VuDVv0do&amp;ab_channel=TechWorldwithNana</a>
+</p>
+
+<p>
+Session 3
+Nov 8, 2022
+</p>
+
+<p>
+Session
+</p>
+</div>
+</div>
+
+<div id="outline-container-org31d46df" class="outline-3">
+<h3 id="org31d46df">Basics</h3>
+<div class="outline-text-3" id="text-org31d46df">
+</div>
+<div id="outline-container-org168aed5" class="outline-4">
+<h4 id="org168aed5">what is kubernetes</h4>
+<div class="outline-text-4" id="text-org168aed5">
+<p>
+container orchestration platform for deploying, managing and analyzing containers.
+written in go
+</p>
+
+<p>
+developed by google for managing container based deployment which gained traction due to microservice architecture with large no of services
+deployed.
+</p>
+
+<p>
+manage 100s to 1000s of container application in different environments
+</p>
+
+<p>
+we can have N master and M worker
+</p>
+
+<p>
+masters are resposible for managing workers which run applications.
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgdab5eeb"></a>Master<br />
+<div class="outline-text-5" id="text-orgdab5eeb">
+<ul class="org-ul">
+<li>api server
+container, entry point of kubernetes cluster
+UI, API, CLI will talk to api server</li>
+<li>controller manager</li>
+<li>scheduler
+deploys container in worker node</li>
+<li>etcd
+Key-value store for whole cluster responsible for backup/restore</li>
+</ul>
+
+<p>
+Virtual network
+</p>
+</div>
+</li>
+
+<li><a id="org7affb74"></a>Worker<br />
+<div class="outline-text-5" id="text-org7affb74">
+<ul class="org-ul">
+<li>kublet (communication, running application)
+N no of docker containers can run</li>
+
+<li>pod
+abstraction layer over containers
+per application 1 pode which runs more than 1 container of application.
+each pod have its own IP address
+<ul class="org-ul">
+<li>ephemeral components so they can die. when gets recreated they get new IP.
+so communication happens via service.
+service
+<ul class="org-ul">
+<li>IP adddress</li>
+<li>load balancer</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-org399adb1" class="outline-4">
+<h4 id="org399adb1">main k8s components</h4>
+<div class="outline-text-4" id="text-org399adb1">
+<ul class="org-ul">
+<li><p>
+node and pod
+abstraction over a container.
+so replacement can be done with docker, kvm or any contaienization tech
+</p>
+
+<p>
+1 application / pod
+</p>
+
+<p>
+1 db | IP<sub>A</sub>
+1 app server | IP<sub>B</sub>
+</p>
+
+<p>
+each pod get ip address
+IP<sub>A</sub> and IP<sub>B</sub> are used for communication
+</p></li>
+
+<li><p>
+service
+due to ephemeral nature of pods and reassigment of IP address service are used.
+</p>
+
+<p>
+1 db | service
+1 app server | service
+</p>
+
+<p>
+service are of types external, internal
+external for public facing and internal for private containers.
+</p>
+
+<p>
+also act has load balancer
+</p></li>
+
+<li>Ingress
+forward DNS to IP address
+to have readable DNS for ip address, is used</li>
+
+<li><p>
+configmap and secret
+</p>
+
+<p>
+lets say we want to connect to some api in our application and that changes.
+one way to change it to update the config files in build app image, push it
+to repo and run it in pod but thats a tedious job.
+</p>
+
+<p>
+what we can do is leverage configMap to store these sort of details and then
+use configmap service in pod to get those values.
+</p>
+
+<p>
+secret is like configmap but its for sensitive data like passwords, keys etc.
+</p></li>
+
+<li><p>
+volumes
+</p>
+
+<p>
+if we run db and restart it the data will be gone.
+for persisting data like for logs, db we use volumes which attaches pod to the data
+external storage, which might be local storage, remote outside of k8s cluster.
+</p>
+
+<p>
+<b>k8s dont manage data persistance</b>
+</p></li>
+
+<li><p>
+Deployment and statefulset
+</p>
+
+<p>
+we dont deploy pods but a blueprint of application called deployment.
+it has configuration which specifies replicas so if 1 replica goes down
+other can handle the requests, the service is talking to multiple replicas
+and act as a load balancer. this way application can scale as well be available.
+</p>
+
+<p>
+deployment is used for deploying stateless applications.
+</p>
+
+<p>
+Statful applications like databases cannot be deployed using this strategy
+because they will run into data inconsistency as when handling requests
+because the synchonization is not happening between the persistance layer of
+multiple pods.
+To solve this problem we have Stateful set to deploy stateful applications.
+<b>Deploying Stateful Applications using StatefulSet is difficult and often run ouside K8s Cluster</b>
+</p></li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0ca60c5" class="outline-4">
+<h4 id="org0ca60c5">k8s architecture</h4>
+</div>
+<div id="outline-container-org795147f" class="outline-4">
+<h4 id="org795147f">minikube and kubectl</h4>
+</div>
+<div id="outline-container-orgdf18b64" class="outline-4">
+<h4 id="orgdf18b64">main kubectl commands - k8s CLI</h4>
+</div>
+<div id="outline-container-org66d27eb" class="outline-4">
+<h4 id="org66d27eb">K8s YAML Configuration file</h4>
+</div>
+<div id="outline-container-org769ab46" class="outline-4">
+<h4 id="org769ab46">Hands on Demo</h4>
+</div>
+</div>
+<div id="outline-container-org1da2714" class="outline-3">
+<h3 id="org1da2714">Advanced</h3>
+<div class="outline-text-3" id="text-org1da2714">
+</div>
+<div id="outline-container-org7d6aed2" class="outline-4">
+<h4 id="org7d6aed2">K8s Namesspaces - organizer your components</h4>
+</div>
+<div id="outline-container-orgefbd397" class="outline-4">
+<h4 id="orgefbd397">k8s ingress</h4>
+</div>
+<div id="outline-container-org5e2b4c9" class="outline-4">
+<h4 id="org5e2b4c9">Helm - package manager</h4>
+</div>
+<div id="outline-container-org6982fa0" class="outline-4">
+<h4 id="org6982fa0">Volums - pesisting in k8s</h4>
+</div>
+<div id="outline-container-org469255b" class="outline-4">
+<h4 id="org469255b">K8s statefulset - deploment stateful apps</h4>
+</div>
+<div id="outline-container-org240b12d" class="outline-4">
+<h4 id="org240b12d">k8s services typs for different usecases</h4>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 28.2 (<a href="https://orgmode.org">Org</a> mode 9.5.5)</p>
+</div>
+</body>
+</html>

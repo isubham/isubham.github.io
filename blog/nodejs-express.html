@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4d08142">Express</a>
+<ul>
+<li><a href="#org622fb0d">Express Routing &amp; Middleware</a></li>
+<li><a href="#org9cf75e3">middleware,</a></li>
+<li><a href="#org96e09ce">Route Handlers</a></li>
+<li><a href="#orgc29d403">Query Parameters</a></li>
+<li><a href="#org589d24c">Express.Router</a></li>
+<li><a href="#org7b4de7b">Route parameters</a></li>
+<li><a href="#org0dbfeb1">Response Object</a></li>
+<li><a href="#orgf208b96">storing them in a jsonbin</a></li>
+<li><a href="#orgdb0d2d3">MIDDLEWARE</a></li>
+<li><a href="#org49cb884">route level middleware</a></li>
+<li><a href="#org1f515ce">built in middleware</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4d08142" class="outline-2">
+<h2 id="org4d08142">Express</h2>
+<div class="outline-text-2" id="text-org4d08142">
+<div class="org-src-container">
+<pre class="src src-js">
+console.log(<span style="color: #98be65;">"hello wordld"</span>);
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org622fb0d" class="outline-3">
+<h3 id="org622fb0d">Express Routing &amp; Middleware</h3>
+<div class="outline-text-3" id="text-org622fb0d">
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">import</span> express from <span style="color: #98be65;">'express'</span>;
+<span style="color: #51afef;">import</span> {JsBin} from <span style="color: #98be65;">'./db.js'</span>;
+
+
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">dbReadKey</span> = process.env.JSBIN_ACCESS_KEY
+                || <span style="color: #98be65;">"$2b$10$ZT0hO3hBks9DS34Q/wljm.iRbwDGm91hSrvhP9WqHGE6dU13bZt.u"</span>;
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">db</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">JsBin</span>(dbReadKey);
+
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">app</span> = express();
+
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">todos</span> = [
+    { id: 1, isComplete: <span style="color: #a9a1e1;">true</span>, name : <span style="color: #98be65;">'do sometgin'</span>},
+    { id: 2, isComplete: <span style="color: #a9a1e1;">true</span>, name : <span style="color: #98be65;">'do sometgin'</span>},
+    { id: 3, isComplete: <span style="color: #a9a1e1;">false</span>, name : <span style="color: #98be65;">'do sometgin'</span>},
+    { id: 4, isComplete: <span style="color: #a9a1e1;">false</span>, name : <span style="color: #98be65;">'do sometgin'</span>},
+    { id: 5, isComplete: <span style="color: #a9a1e1;">false</span>, name : <span style="color: #98be65;">'do sometgin'</span>},
+]
+
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">constants</span> = {
+        DB_READ_KEY: process.env.JSBIN_ACCESS_KEY
+};
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9cf75e3" class="outline-3">
+<h3 id="org9cf75e3">middleware,</h3>
+<div class="outline-text-3" id="text-org9cf75e3">
+<p>
+     middleware are functions that called before the routing,
+     has access to req, res and next.
+     next() must be called or else the route handlers won't get called and client will timeout
+     app.use() need to be called to enable the middleware
+[x] next,
+ calls the next middleware
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">logger</span> = (req, res, next) =&gt; {
+        req.id = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Date</span>();
+    console.log(<span style="color: #98be65;">'logger | requestId'</span>, req.id);
+        next();
+}
+
+app.use(logger);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org96e09ce" class="outline-3">
+<h3 id="org96e09ce">Route Handlers</h3>
+<div class="outline-text-3" id="text-org96e09ce">
+<p>
+we can have
+app(routeString, handler1(req, res))
+app(routeString, middleware(req, res, next), handler2(req, res))
+app(routeString, middleware(req, res, next), , , handler2(req, res))
+app(routeString, [middleware(req, res, next), handler2(req, res)])
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-js">
+app.get(<span style="color: #98be65;">'/'</span>, rootInputHandler, rootController, rootOutputHandler);
+app.get(<span style="color: #98be65;">'/array'</span>, [rootInputHandler, rootController, rootOutputHandler]);
+app.get(<span style="color: #98be65;">'/partialarray'</span>, rootInputHandler, [rootController, rootOutputHandler]);
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc29d403" class="outline-3">
+<h3 id="orgc29d403">Query Parameters</h3>
+<div class="outline-text-3" id="text-orgc29d403">
+<p>
+req.query gives us access to query parameters
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">
+app.get(<span style="color: #98be65;">'/ml/random/'</span>, rootInputHandler, (req, res) =&gt; {
+        <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">min</span> = parseInt(req.query.min);
+        <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">max</span> = parseInt(req.query.min);
+        console.log(max)
+        res.send({ num: (min + max) / 2})
+});
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org589d24c" class="outline-3">
+<h3 id="org589d24c">Express.Router</h3>
+<div class="outline-text-3" id="text-org589d24c">
+<p>
+this gives a mini-app, modular way to organize resources.
+</p>
+<ul class="org-ul">
+<li>can also have middleware which deals with only its routes</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">pdfRouter</span> = express.Router();
+
+pdfRouter.use((req, res, next) =&gt; {
+        console.log(<span style="color: #98be65;">"pdfRouter | middleware"</span>);
+        next();
+});
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7b4de7b" class="outline-3">
+<h3 id="org7b4de7b">Route parameters</h3>
+<div class="outline-text-3" id="text-org7b4de7b">
+<p>
+ [x] path,
+'<i>:name</i> can be accesed via req.params will have obj {name: name in url}
+to download it using curl
+curl -o {your<sub>file</sub><sub>name</sub>} url
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-js">
+pdfRouter.get(<span style="color: #98be65;">'/:name'</span>, rootInputHandler, (req, res) =&gt; {
+        res.download(<span style="color: #98be65;">`pdf/${req.params.name}`</span>)
+});
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0dbfeb1" class="outline-3">
+<h3 id="org0dbfeb1">Response Object</h3>
+<div class="outline-text-3" id="text-org0dbfeb1">
+<ul class="org-ul">
+<li>json</li>
+<li>send</li>
+<li>sendStatus</li>
+<li>download</li>
+<li>redirect</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-js">
+app.get(<span style="color: #98be65;">'/v1/:name'</span>, rootInputHandler, (req, res) =&gt; {
+        res.redirect(<span style="color: #98be65;">`../../pdf/${req.params.name}`</span>)
+});
+
+app.use(<span style="color: #98be65;">'/pdf'</span>, pdfRouter);
+
+app.get(<span style="color: #98be65;">'/gf/'</span>, rootInputHandler, (req, res) =&gt; {
+        res.sendStatus(404)
+});
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf208b96" class="outline-3">
+<h3 id="orgf208b96">storing them in a jsonbin</h3>
+<div class="outline-text-3" id="text-orgf208b96">
+<div class="org-src-container">
+<pre class="src src-js">
+app.get(<span style="color: #98be65;">'/waifu/'</span>, rootInputHandler, <span style="color: #51afef;">async</span> (req, res) =&gt; {
+        <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">binName</span> = <span style="color: #98be65;">'63353f49e13e6063dcb9c0a8'</span>;
+        <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">waifus</span> = <span style="color: #51afef;">await</span> db.readBin(binName);
+        res.send(waifus);
+});
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdb0d2d3" class="outline-3">
+<h3 id="orgdb0d2d3">MIDDLEWARE</h3>
+</div>
+<div id="outline-container-org49cb884" class="outline-3">
+<h3 id="org49cb884">route level middleware</h3>
+<div class="outline-text-3" id="text-org49cb884">
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">isValid</span> = () =&gt; parseInt(Math.random() * 10) % 2 == 0;
+
+<span style="color: #51afef;">function</span> <span style="color: #c678dd;">rootInputHandler</span>(<span style="color: #dcaeea;">req</span>, <span style="color: #dcaeea;">res</span>, <span style="color: #dcaeea;">next</span>) {
+        console.log(<span style="color: #98be65;">"routeInputHandler middleware"</span>, req.id);
+
+        <span style="color: #51afef;">if</span> (isValid()) {
+                next()
+        }
+        <span style="color: #51afef;">else</span> {
+                console.log(<span style="color: #98be65;">'routeInputHandler | invalid input'</span>);
+                res.send(<span style="color: #98be65;">'invalid input'</span>);
+        }
+}
+
+<span style="color: #51afef;">function</span> <span style="color: #c678dd;">rootController</span> (<span style="color: #dcaeea;">req</span>, <span style="color: #dcaeea;">res</span>, <span style="color: #dcaeea;">next</span>) {
+        console.log(<span style="color: #98be65;">"route controller "</span>, req.id);
+    req.data = {<span style="color: #98be65;">'message'</span>: <span style="color: #98be65;">'hello world'</span>};
+        next();
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1f515ce" class="outline-3">
+<h3 id="org1f515ce">built in middleware</h3>
+<div class="outline-text-3" id="text-org1f515ce">
+<ul class="org-ul">
+<li>- express static serve as a FTP server</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">staticOptions</span> = {
+                <span style="color: #98be65;">"index"</span>: <span style="color: #a9a1e1;">true</span>,
+                <span style="color: #98be65;">"extensions"</span>: [<span style="color: #98be65;">"html"</span>, <span style="color: #98be65;">"pdf"</span>]
+};
+app.use(<span style="color: #98be65;">"/web/"</span>, express.<span style="color: #51afef;">static</span>(<span style="color: #98be65;">"public"</span>, staticOptions));
+app.use(<span style="color: #98be65;">"/doc/"</span>, express.<span style="color: #51afef;">static</span>(<span style="color: #98be65;">"pdf"</span>, staticOptions));
+
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">express.json middleware to parse json payload</span>
+
+app.use(express.json({limit:<span style="color: #98be65;">"1mb"</span>}));
+
+</pre>
+</div>
+
+
+
+<p>
+/*
+</p>
+<ul class="org-ul">
+<li>Response Object</li>
+<li><code>=============</code></li>
+<li></li>
+
+<li>*/</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">port</span> = 8080;
+
+app.listen(port, () =&gt; {
+        console.log(<span style="color: #98be65;">'server listening on port'</span>, port);
+});
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 28.2 (<a href="https://orgmode.org">Org</a> mode 9.5.5)</p>
+</div>
+</body>
+</html>

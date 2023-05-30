@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orga0a5540">React</a>
+<ul>
+<li><a href="#orgda5556c">Object Destructuring</a></li>
+<li><a href="#org33d2919">Rendering Arrays</a></li>
+<li><a href="#org4e50d37">Promises</a></li>
+<li><a href="#org8ff1a71">Effect-hooks</a></li>
+<li><a href="#org9e68a56">Initializing data from API</a></li>
+<li><a href="#org88d4f08">Unit Testing</a></li>
+<li><a href="#org752448a">Handling Click Handlers</a></li>
+<li><a href="#org032d4ee">Test Coverage</a></li>
+<li><a href="#org3c0a61a">Absolute imports in react</a></li>
+<li><a href="#org771abc1">Next.JS</a></li>
+<li><a href="#org8be6de5">Conference</a></li>
+<li><a href="#orgfbb3515">Confifuring JEST For ESM Modules based repos</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga0a5540" class="outline-2">
+<h2 id="orga0a5540">React</h2>
+<div class="outline-text-2" id="text-orga0a5540">
+</div>
+<div id="outline-container-orgda5556c" class="outline-3">
+<h3 id="orgda5556c">Object Destructuring</h3>
+<div class="outline-text-3" id="text-orgda5556c">
+<div class="org-src-container">
+<pre class="src src-javascript">
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">in react components props can be destructured at method parameter level</span>
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">React component names must be capitalized.</span>
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">GreetingMessage</span>  = ({message, from}) =&gt;  {
+
+    <span style="color: #51afef;">return</span> (
+        &lt;div&gt;
+            &lt;h3&gt;{from}&lt;/h3&gt;
+            &lt;p&gt;{message}&lt;/p&gt;
+        &lt;/div&gt;
+    )
+
+}
+<span style="color: #51afef;">export</span> <span style="color: #51afef;">default</span> GreetingMessage;
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org33d2919" class="outline-3">
+<h3 id="org33d2919">Rendering Arrays</h3>
+<div class="outline-text-3" id="text-org33d2919">
+<div class="org-src-container">
+<pre class="src src-javascript">
+&lt;ul&gt;
+  {notes.map((note, i) =&gt;
+    &lt;li key={i}&gt;
+      {note.content}
+    &lt;/li&gt;
+  )}
+&lt;/ul&gt;
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">not recommended and can create undesired problems</span>
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">even if it seems to be working just fine.</span>
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">use id of entities</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4e50d37" class="outline-3">
+<h3 id="org4e50d37">Promises</h3>
+<div class="outline-text-3" id="text-org4e50d37">
+<p>
+<b><b>The promise is pending: It means that the final value (one of the following two) is not available yet.</b></b>
+</p>
+
+<p>
+<b><b>The promise is fulfilled: It means that the operation has completed and the final value is available, which generally is a successful operation. This state is sometimes also called resolved.</b></b>
+</p>
+
+<p>
+<b><b>The promise is rejected: It means that an error prevented the final value from being determined, which generally represents a failed operation.</b></b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8ff1a71" class="outline-3">
+<h3 id="org8ff1a71">Effect-hooks</h3>
+<div class="outline-text-3" id="text-org8ff1a71">
+<p>
+<b><b>We have already used [state hooks](<a href="https://reactjs.org/docs/hooks-state.html">https://reactjs.org/docs/hooks-state.html</a>) that were introduced along with React version [16.8.0](<a href="https://www.npmjs.com/package/react/v/16.8.0">https://www.npmjs.com/package/react/v/16.8.0</a>), which provide state to React components defined as functions - the so-called functional components. Version 16.8.0 also introduces the [effect hooks](<a href="https://reactjs.org/docs/hooks-effect.html">https://reactjs.org/docs/hooks-effect.html</a>) as a new feature. As per the official docs:</b></b>
+</p>
+
+<p>
+&gt; The Effect Hook lets you perform side effects in function components. Data fetching, setting up a subscription, and manually changing the DOM in React components are all examples of side effects.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">
+<span style="color: #51afef;">import</span> React, { useState, useEffect } from <span style="color: #98be65;">'react'</span>
+<span style="color: #51afef;">import</span> axios from <span style="color: #98be65;">'axios'</span>
+<span style="color: #51afef;">import</span> Note from <span style="color: #98be65;">'./components/Note'</span>
+
+<span style="color: #51afef;">const</span> <span style="color: #dcaeea;">App</span> = () =&gt; {
+  <span style="color: #51afef;">const</span> [<span style="color: #dcaeea;">notes</span>, <span style="color: #dcaeea;">setNotes</span>] = useState([])
+  <span style="color: #51afef;">const</span> [<span style="color: #dcaeea;">newNote</span>, <span style="color: #dcaeea;">setNewNote</span>] = useState(<span style="color: #98be65;">''</span>)
+  <span style="color: #51afef;">const</span> [<span style="color: #dcaeea;">showAll</span>, <span style="color: #dcaeea;">setShowAll</span>] = useState(<span style="color: #a9a1e1;">true</span>)
+
+        useEffect(() =&gt; {
+    console.log(<span style="color: #98be65;">'effect'</span>)
+    axios
+      .get(<span style="color: #98be65;">'http://localhost:3001/notes'</span>)
+      .then(response =&gt; {
+        console.log(<span style="color: #98be65;">'promise fulfilled'</span>)
+        setNotes(response.data)
+      })
+  }, [])
+  console.log(<span style="color: #98be65;">'render'</span>, notes.length, <span style="color: #98be65;">'notes'</span>)
+        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">...</span>
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9e68a56" class="outline-3">
+<h3 id="org9e68a56">Initializing data from API</h3>
+<div class="outline-text-3" id="text-org9e68a56">
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #5B6268;">// </span><span style="color: #5B6268;">your action.js file</span>
+<span style="color: #5B6268;">/// </span><span style="color: #5B6268;">//////////////////////</span>
+<span style="color: #51afef;">export</span> <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">initializeNotes</span> = () =&gt; {
+  <span style="color: #51afef;">return</span> <span style="color: #51afef;">async</span> dispatch =&gt; {
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">notes</span> = <span style="color: #51afef;">await</span> noteService.getAll()
+    dispatch({
+      type: <span style="color: #98be65;">'INIT_NOTES'</span>,
+      data: notes,
+    })
+  }
+}
+
+<span style="color: #51afef;">export</span> <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">createNote</span> = content =&gt; {
+  <span style="color: #51afef;">return</span> <span style="color: #51afef;">async</span> dispatch =&gt; {
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">newNote</span> = <span style="color: #51afef;">await</span> noteService.createNew(content)
+    dispatch({
+      type: <span style="color: #98be65;">'NEW_NOTE'</span>,
+      data: newNote,
+    })
+  }
+}
+
+<span style="color: #5B6268;">// </span><span style="color: #5B6268;">component file</span>
+<span style="color: #5B6268;">//////////////////</span>
+useEffect(() =&gt; {
+    dispatch(initializeNotes())
+  },[dispatch])
+
+
+</pre>
+</div>
+
+<p>
+props.children
+</p>
+</div>
+</div>
+
+<div id="outline-container-org88d4f08" class="outline-3">
+<h3 id="org88d4f08">Unit Testing</h3>
+<div class="outline-text-3" id="text-org88d4f08">
+<p>
+[Organizing Tests in Jest](<a href="https://medium.com/@JeffLombardJr/organizing-tests-in-jest-17fc431ff850">https://medium.com/@JeffLombardJr/organizing-tests-in-jest-17fc431ff850</a>)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">npm install --save-dev @testing-library/react @testing-library/jest-dom
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">import</span> { render } from <span style="color: #98be65;">"@testing-library/react"</span>;
+<span style="color: #51afef;">import</span> Chat from <span style="color: #98be65;">"./chat"</span>;
+
+test(<span style="color: #98be65;">'should render person and image of chat'</span>, () =&gt; {
+
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">person</span> = {<span style="color: #98be65;">"id"</span>: 1, <span style="color: #98be65;">"person"</span>: <span style="color: #98be65;">"about"</span>,
+        <span style="color: #98be65;">"imageSrc"</span>: <span style="color: #98be65;">"https://static.thenounproject.com/png/2940537-200.png"</span>};
+
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">chatComponent</span> = render(&lt;Chat person={person.person} imageSrc={person.imageSrc}
+        onClick={() =&gt; console.log(<span style="color: #98be65;">'hello'</span>)} /&gt;);
+
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">personName</span> = chatComponent.container.querySelector(<span style="color: #98be65;">".person-name"</span>);
+
+    expect(personName).toHaveTextContent(<span style="color: #98be65;">'about'</span>);
+
+
+})
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org752448a" class="outline-3">
+<h3 id="org752448a">Handling Click Handlers</h3>
+<div class="outline-text-3" id="text-org752448a">
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">import</span> { render, fireEvent } from <span style="color: #98be65;">"@testing-library/react"</span>;
+
+test(<span style="color: #98be65;">'should have click handler called upon clicking'</span>, () =&gt; {
+
+                <span style="color: #5B6268;">// </span><span style="color: #5B6268;">arrange</span>
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">person</span> = {<span style="color: #98be65;">"id"</span>: 1, <span style="color: #98be65;">"person"</span>: <span style="color: #98be65;">"about"</span>,
+        <span style="color: #98be65;">"imageSrc"</span>: <span style="color: #98be65;">"https://static.thenounproject.com/png/2940537-200.png"</span>};
+
+
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">mockHandler</span> = jest.fn();
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">chatComponent</span> = render(&lt;Chat person={person.person} imageSrc={person.imageSrc}
+        onClick={mockHandler} /&gt;);
+
+
+          <span style="color: #5B6268;">// </span><span style="color: #5B6268;">act</span>
+                <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">personName</span> = chatComponent.container.querySelector(<span style="color: #98be65;">".person-name"</span>);
+                fireEvent.click(personName);
+
+                <span style="color: #5B6268;">// </span><span style="color: #5B6268;">assert</span>
+    expect(mockHandler.mock.calls).toHaveLength(1);
+
+})
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org032d4ee" class="outline-3">
+<h3 id="org032d4ee">Test Coverage</h3>
+<div class="outline-text-3" id="text-org032d4ee">
+<p>
+CI=true npm test &#x2013; &#x2013;coverage
+</p>
+
+<p>
+## E2E Testing using Cypress
+</p>
+
+<p>
+```jsx
+npm install &#x2013;save-dev cypress
+npm install eslint-plugin-cypress &#x2013;save-dev
+</p>
+
+<p>
+npm run cypress:open
+</p>
+
+<p>
+```
+</p>
+
+<p>
+```jsx
+describe('app', function() {
+</p>
+
+<p>
+it('front page can be opened', function() {
+  <b><b>cy.visit('http://localhost:3000')
+  cy.contains('subham')</b></b>
+  cy.contains('Hello Everyone')
+})
+</p>
+
+<p>
+it('checking button clicked ', function() {
+  cy.visit('http://localhost:3000')
+  <b><b>cy.get('#clicker').click()</b></b>
+  cy.contains('button clicked')
+</p>
+
+<p>
+})
+</p>
+
+<p>
+it('filling form', function() {
+   cy.visit('http://localhost:3000')
+   <b><b>cy.get('input').type('hello world from cypress')</b></b>
+</p>
+
+<p>
+})
+</p>
+
+<p>
+})
+</p>
+
+<p>
+```
+</p>
+
+<p>
+```jsx
+cy.request('POST', 'http://localhost:3001/api/login', {
+      username: 'mluukkai', password: 'salainen'
+    }).then(response =&gt; {
+      localStorage.setItem('loggedNoteappUser', JSON.stringify(response.body))
+      cy.visit('http://localhost:3000')
+    })
+```
+</p>
+
+<p>
+```jsx
+debugger()
+```
+</p>
+
+<p>
+running cypress from cli
+</p>
+
+<p>
+<b><b>`"test:e2e": "cypress run"`</b></b>
+</p>
+
+<p>
+## State management with Redux
+</p>
+
+<p>
+[Fullstack part6 |](<a href="https://fullstackopen.com/en/part6/flux_architecture_and_redux">https://fullstackopen.com/en/part6/flux_architecture_and_redux</a>)
+</p>
+
+<p>
+[Fundamentals of Redux Course from Dan Abramov](<a href="https://egghead.io/courses/fundamentals-of-redux-course-from-dan-abramov-bd5cc867">https://egghead.io/courses/fundamentals-of-redux-course-from-dan-abramov-bd5cc867</a>)
+</p>
+
+<p>
+## PropTypes
+</p>
+
+<p>
+to enforce type to components which will be passed in props PropTypes package can be used.
+</p>
+
+<p>
+```jsx
+import PropTypes from 'prop-types'
+</p>
+
+<p>
+const LoginForm = ({
+   handleSubmit,
+   handleUsernameChange,
+   handlePasswordChange,
+   username,
+   password
+  }) =&gt; {
+    // &#x2026;
+  }
+</p>
+
+<p>
+LoginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleUsernameChange: PropTypes.func.isRequired,
+  handlePasswordChange: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
+}
+```
+</p>
+
+<p>
+## Testing React apps
+</p>
+
+<p>
+Mocking module functions
+</p>
+
+<p>
+```bash
+import { shuffleVert } from 'matrix';
+const shuffleVertRef = {
+    shuffleVert
+};
+let spyShuffleVert;
+</p>
+
+<p>
+beforeEach(() =&gt; {
+    spyShuffleVert = jest.spyOn(shuffleVertRef, "shuffleVert");
+}
+</p>
+
+<p>
+afterEach(() =&gt; {
+    jest.clearAllMocks();
+}
+</p>
+
+<p>
+it('should shuffle the rows of the entire matrix with no argument for columns', () = {
+    let srcMatrix = [
+        { number: 1, word: 'one' },
+        { number: 2, word: 'two' },
+        { number: 3, word: 'three' }
+    ];
+</p>
+
+<p>
+    shuffleVert(srcMatrix);
+    expect(spyShuffleVert).toHaveBeenCalledTimes(2);
+}
+```
+</p>
+
+<p>
+## react hooks
+</p>
+
+<p>
+[React Hooks Tutorial](<a href="https://www.robinwieruch.de/react-hooks">https://www.robinwieruch.de/react-hooks</a>)
+</p>
+
+<p>
+React-router-Dom
+</p>
+
+<p>
+Redux
+</p>
+
+<p>
+React-Redux
+</p>
+
+<p>
+Jest
+</p>
+
+<p>
+## Gatsby
+</p>
+
+<p>
+```bash
+npm install -g gatsby-cli
+gatsby new portfolio
+</p>
+
+<p>
+```
+</p>
+
+<p>
+gastsy-link → for link
+</p>
+
+<p>
+react-helmet → for head info
+</p>
+
+<p>
+```bash
+gastsy develop
+</p>
+
+<p>
+```
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-js">
+<span style="color: #51afef;">export</span> <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">redirectTo404</span> = (locale = <span style="color: #98be65;">'en-sg'</span>) =&gt; {
+  window.location = <span style="color: #98be65;">`${window.location.origin}/${locale}/404`</span>
+}
+
+<span style="color: #51afef;">import</span> { redirectTo404 } from <span style="color: #98be65;">'utils/redirectTo404'</span>
+
+describe(<span style="color: #98be65;">'redirectTo404'</span>, () =&gt; {
+  global.window = Object.create(window)
+  <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">url</span> = <span style="color: #98be65;">'http://localhost/'</span>
+  Object.defineProperty(window, <span style="color: #98be65;">'location'</span>, {
+    value: {
+      origin: url
+    },
+    writable: <span style="color: #a9a1e1;">true</span>
+  })
+  test(<span style="color: #98be65;">'should redirect'</span>, () =&gt; {
+    expect(window.location.origin).toBe(<span style="color: #98be65;">'http://localhost/'</span>)
+    redirectTo404(<span style="color: #98be65;">'en-sg'</span>)
+    expect(window.location).toBe(<span style="color: #98be65;">'http://localhost//en-sg/404'</span>)
+  })
+})
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c0a61a" class="outline-3">
+<h3 id="org3c0a61a">Absolute imports in react</h3>
+<div class="outline-text-3" id="text-org3c0a61a">
+<p>
+[Absolute imports with Create React App](<a href="https://medium.com/hackernoon/absolute-imports-with-create-react-app-4c6cfb66c35d">https://medium.com/hackernoon/absolute-imports-with-create-react-app-4c6cfb66c35d</a>)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org771abc1" class="outline-3">
+<h3 id="org771abc1">Next.JS</h3>
+<div class="outline-text-3" id="text-org771abc1">
+<p>
+[Lee Robinson - Developer, writer, creator.](<a href="https://leerob.io/">https://leerob.io/</a>)
+</p>
+
+<p>
+[<a href="https://www.youtube.com/watch?v=mTz0GXj8NN0">https://www.youtube.com/watch?v=mTz0GXj8NN0</a>](<a href="https://www.youtube.com/watch?v=mTz0GXj8NN0">https://www.youtube.com/watch?v=mTz0GXj8NN0</a>)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8be6de5" class="outline-3">
+<h3 id="org8be6de5">Conference</h3>
+<div class="outline-text-3" id="text-org8be6de5">
+<p>
+[Conferences - React](<a href="https://reactjs.org/community/conferences.html">https://reactjs.org/community/conferences.html</a>)
+</p>
+
+<p>
+[<a href="https://conf.reactjs.org/stage">https://conf.reactjs.org/stage</a>](<a href="https://conf.reactjs.org/stage">https://conf.reactjs.org/stage</a>)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfbb3515" class="outline-3">
+<h3 id="orgfbb3515">Confifuring JEST For ESM Modules based repos</h3>
+<div class="outline-text-3" id="text-orgfbb3515">
+<p>
+configure jest for you Node.js backend project, lambdas for ESM based repos
+</p>
+
+<ol class="org-ol">
+<li>Installation</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-bash">npm install jest
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>setting up jest.config.json</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+    "transform": {}
+}
+</pre>
+</div>
+
+<p>
+this will not transform your source code which is helpful if you are mocking your dependencies while writing unit tests. <a href="https://stackoverflow.com/questions/64582674/jest-mock-of-es6-class-yields-referenceerror-require-is-not-defined">https://stackoverflow.com/questions/64582674/jest-mock-of-es6-class-yields-referenceerror-require-is-not-defined</a>
+</p>
+
+<ol class="org-ol">
+<li>Test Scripts</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+{
+<span style="color: #98be65;">"scripts"</span>: {
+    <span style="color: #98be65;">"test-watch"</span>: <span style="color: #98be65;">"node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"</span>,
+    <span style="color: #98be65;">"test"</span>: <span style="color: #98be65;">"node --experimental-vm-modules node_modules/jest/bin/jest.js"</span>,
+}
+</pre>
+</div>
+
+<p>
+Why &#x2013;experimental-vm-modules?
+[Official Doc](<a href="https://jestjs.io/docs/ecmascript-modules">https://jestjs.io/docs/ecmascript-modules</a>)
+</p>
+
+<ol class="org-ol">
+<li>Testing specific files</li>
+</ol>
+
+<p>
+```bash
+npm run test-watch src/get-file/index.test.js
+```
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 28.2 (<a href="https://orgmode.org">Org</a> mode 9.5.5)</p>
+</div>
+</body>
+</html>

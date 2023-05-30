@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6693f6b">Docker</a>
+<ul>
+<li><a href="#orgc8909d8">What is Docker? what is contaienr</a>
+<ul>
+<li><a href="#orgda09f1c">What is a container</a></li>
+<li><a href="#org65d6ba6">What is container</a></li>
+<li><a href="#org2ad9627">Image Vs Container</a></li>
+</ul>
+</li>
+<li><a href="#org5339a7d">Docker vs Virtual Machine</a></li>
+<li><a href="#org46b6cc4">Docker installation</a></li>
+<li><a href="#org86bc43c">Commands</a>
+<ul>
+<li><a href="#org6cc3108">contaienr Vs image</a></li>
+<li><a href="#orga371df1">Binding container ports to host ports</a></li>
+</ul>
+</li>
+<li><a href="#orgd0ccefe">Debugging a container</a></li>
+<li><a href="#org4b7643a">Developing with Container</a></li>
+<li><a href="#org83b49e8">Docker compose - Running multiple Service</a></li>
+<li><a href="#org0fe79a7">Dockerfile</a></li>
+<li><a href="#org2ed2d19">private docker Repos</a></li>
+<li><a href="#orgb6ca94a">Deploying the containerized group</a></li>
+<li><a href="#org23c6994">Volumes Demo</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6693f6b" class="outline-2">
+<h2 id="org6693f6b">Docker</h2>
+<div class="outline-text-2" id="text-org6693f6b">
+</div>
+<div id="outline-container-orgc8909d8" class="outline-3">
+<h3 id="orgc8909d8">What is Docker? what is contaienr</h3>
+<div class="outline-text-3" id="text-orgc8909d8">
+</div>
+<div id="outline-container-orgda09f1c" class="outline-4">
+<h4 id="orgda09f1c">What is a container</h4>
+<div class="outline-text-4" id="text-orgda09f1c">
+<ul class="org-ul">
+<li>a way to package application with all the dependencies</li>
+<li>portable artifact</li>
+</ul>
+
+<p>
+The area where containers are stored
+Container Repository
+</p>
+<ul class="org-ul">
+<li>private repo</li>
+<li>public repo (dockerhub)</li>
+</ul>
+</div>
+
+<ul class="org-ul">
+<li><a id="org044e2c0"></a>How container improved application development<br />
+<div class="outline-text-5" id="text-org044e2c0">
+<p>
+for developing application individual services needs to be added in host machine
+which mighe be different for different applications.
+</p>
+
+<p>
+after that
+we can have our
+</p>
+<ul class="org-ul">
+<li>own isolated environment</li>
+<li>consistent application development</li>
+</ul>
+</div>
+
+<ul class="org-ul">
+<li><a id="org84f445b"></a>applicaiton deployment<br />
+<div class="outline-text-6" id="text-org84f445b">
+<p>
+developer
+</p>
+<ul class="org-ul">
+<li>application binary with instructions, databases with instructions</li>
+</ul>
+
+<p>
+operations
+</p>
+<ul class="org-ul">
+<li>install service with external dependencies</li>
+<li>conflict in dependencies</li>
+<li>miscommunication  due to textual nature of instructions</li>
+</ul>
+
+<p>
+After Containers
+developer and operation work together to create docker env
+No configuration on server except docker runtime
+</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org65d6ba6" class="outline-4">
+<h4 id="org65d6ba6">What is container</h4>
+<div class="outline-text-4" id="text-org65d6ba6">
+<ul class="org-ul">
+<li>layer of images</li>
+<li>and base layer is linux (mostly alpine)</li>
+</ul>
+
+<hr />
+<p>
+application layer (postgres)
+</p>
+<hr />
+<hr />
+<hr />
+<p>
+Linux Base Image
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2ad9627" class="outline-4">
+<h4 id="org2ad9627">Image Vs Container</h4>
+<div class="outline-text-4" id="text-org2ad9627">
+<p>
+artifact
+</p>
+
+<p>
+running the image is container
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5339a7d" class="outline-3">
+<h3 id="org5339a7d">Docker vs Virtual Machine</h3>
+<div class="outline-text-3" id="text-org5339a7d">
+<p>
+operating system has 2 components
+</p>
+<ul class="org-ul">
+<li>application</li>
+<li>kernel</li>
+</ul>
+
+<p>
+virutal machine abstract both components application as well as kernel
+so they are intensive to run
+</p>
+
+<p>
+container use the kernel of host operating system and that and only include
+application layer along with dependencies.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org46b6cc4" class="outline-3">
+<h3 id="org46b6cc4">Docker installation</h3>
+<div class="outline-text-3" id="text-org46b6cc4">
+<p>
+already done
+</p>
+</div>
+</div>
+<div id="outline-container-org86bc43c" class="outline-3">
+<h3 id="org86bc43c">Commands</h3>
+<div class="outline-text-3" id="text-org86bc43c">
+</div>
+<div id="outline-container-org6cc3108" class="outline-4">
+<h4 id="org6cc3108">contaienr Vs image</h4>
+<div class="outline-text-4" id="text-org6cc3108">
+<p>
+container = running image 
+</p>
+
+<p>
+container = filesystem, environemnt configs, application image, port 
+</p>
+
+<ul class="org-ul">
+<li>virtual file system</li>
+<li>port: talk to appln. inside container</li>
+<li>application image - redis</li>
+</ul>
+
+<p>
+docker pull redis
+docker run redis
+</p>
+
+<p>
+docker ps
+can be used to check the containers
+C -c to kill it
+</p>
+
+<p>
+to start in <b>detached mode</b>
+<b>docker run -d redis</b>
+</p>
+
+<p>
+if some application that we are running crashed
+we can stop that and start it again to do that
+</p>
+
+<p>
+using docker ps command to get Container ID 
+</p>
+
+<p>
+<b>docker stop &lt;container id&gt;</b>
+</p>
+
+<p>
+<b>docker start &lt;container id&gt;</b>
+</p>
+
+<p>
+well remembering the container id might be a pain if we stopped it
+and started looking for it again after some time
+</p>
+
+<p>
+<b>docker ps -a</b> will give all the container - stopped as well as running.
+</p>
+
+<p>
+<b>docker run</b> will do contitional pull and start.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orga371df1" class="outline-4">
+<h4 id="orga371df1">Binding container ports to host ports</h4>
+<div class="outline-text-4" id="text-orga371df1">
+<p>
+when we run containers, it runs on a port and that port is container port
+and we cannot access it via that port
+</p>
+
+<p>
+for example.
+redis runs on 6379 and that port,
+and if we run it again of different version the sample port will get used
+it is possible because its container's port and that's why it can run on same
+port.
+to attach it to a host's port what we can do is specify host port when we run a container.
+</p>
+
+<p>
+i.e.
+</p>
+
+<p>
+docker run -p&lt;host<sub>port</sub>&gt;:&lt;container<sub>port</sub>&gt; -d image:version
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">
+docker run -p6000:6379 -d redis
+
+docker run -p6000:6379 -d redis:4.0 <span style="color: #5B6268;"># </span><span style="color: #5B6268;">this will not work, conflict with host port</span>
+
+docker run -p6001:6379 -d redis:4.0 <span style="color: #5B6268;"># </span><span style="color: #5B6268;">this will work</span>
+
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd0ccefe" class="outline-3">
+<h3 id="orgd0ccefe">Debugging a container</h3>
+<div class="outline-text-3" id="text-orgd0ccefe">
+<p>
+Specifying name while running container
+</p>
+
+<p>
+<b>docker run -d -p6001:6379 &#x2013;name redis<sub>latest</sub><sub>6001</sub> redis</b>
+</p>
+
+
+<p>
+accessing the terminal
+</p>
+
+<p>
+<b>docker exec -it redis<sub>latest</sub><sub>6000</sub> /bin/bash</b>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org4b7643a" class="outline-3">
+<h3 id="org4b7643a">Developing with Container</h3>
+<div class="outline-text-3" id="text-org4b7643a">
+<p>
+Running MongoDB
+*docker run -d -p 27017:27017 -e MONGO<sub>INITDB</sub><sub>ROOT</sub><sub>USERNAME</sub>=admin -e MONGO<sub>INITDB</sub><sub>ROOT</sub><sub>PASSWORD</sub>=password &#x2013;name mongodb &#x2013;net anime<sub>media</sub><sub>network</sub> mongo
+</p>
+
+<p>
+Running MongoDB Express
+docker run -d \
+-p 8081:8081 \
+-e ME<sub>CONFIG</sub><sub>MONGODB</sub><sub>ADMINUSERNAME</sub>=admin \
+-e ME<sub>CONFIG</sub><sub>MONGODB</sub><sub>ADMINPASSWORD</sub>=password \
+&#x2013;net anime<sub>media</sub><sub>network</sub> \
+&#x2013;name mongo<sub>express</sub> \
+-e ME<sub>CONFIG</sub><sub>MONGODB</sub><sub>SERVER</sub>=mongodb \
+mongo-express
+</p>
+
+
+<p>
+we can connect our node.js app to other docker contaiener like mongodb
+and build out the application
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org83b49e8" class="outline-3">
+<h3 id="org83b49e8">Docker compose - Running multiple Service</h3>
+<div class="outline-text-3" id="text-org83b49e8">
+<p>
+Running multiple containers cab be tedious at times when we have
+multiple docker containers with additional steps.
+</p>
+
+<p>
+Docker compose lets us record the multi container setup through a yaml
+file
+</p>
+
+<p>
+docker-compose comes preinstalled with docker.
+</p>
+
+<p>
+docker-compose -f &lt;yaml file&gt; up | down
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">version: 3.0
+services:
+  mongodb:
+    image: mongo
+    ports:
+    - 27017:27017
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=admin
+    - MONGO_INITDB_ROOT_PASSWORD=password
+  mongo_express
+    image: mongo-express
+    ports:
+    - 8081:8081
+    environment:
+    - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+    - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+    - ME_CONFIG_MONGODB_SERVER=mongodb \
+
+the network is automatically created.
+
+
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0fe79a7" class="outline-3">
+<h3 id="org0fe79a7">Dockerfile</h3>
+<div class="outline-text-3" id="text-org0fe79a7">
+<p>
+base image to start off
+</p>
+
+<p>
+FROM &lt;&gt; # base image
+</p>
+
+<p>
+ENV &lt;&gt;=&lt;&gt;
+</p>
+
+<p>
+RUN &lt;linux command&gt;
+</p>
+
+<p>
+COPY &lt;host<sub>location</sub>&gt; &lt;image<sub>location</sub>&gt;
+</p>
+
+<p>
+CMD ["command", "file"] # only one cmd command which is entrypoint of server
+</p>
+
+<p>
+WORKDIR &lt;container location&gt;
+</p>
+
+
+<p>
+build docker image
+</p>
+
+<p>
+docker build -t name:tag &lt;location of docker file&gt; .
+</p>
+
+<p>
+deleting images
+</p>
+
+<p>
+docker rmi &lt;imageId&gt;
+</p>
+
+<p>
+docker rm &lt;contaienrId&gt;
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org2ed2d19" class="outline-3">
+<h3 id="org2ed2d19">private docker Repos</h3>
+<div class="outline-text-3" id="text-org2ed2d19">
+<p>
+Steps to work
+login in the aws ecr 
+docker login
+build image
+push image
+</p>
+
+<p>
+<b>Image naming concept</b>
+registryDomain/image:tag
+so for pulling
+docker pull registryDomain/image:tag
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb6ca94a" class="outline-3">
+<h3 id="orgb6ca94a">Deploying the containerized group</h3>
+<div class="outline-text-3" id="text-orgb6ca94a">
+<p>
+<b>IMPORTANT</b>
+when using containerized app, we need to change the connection string
+of mongodb from ip address to the container name.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org23c6994" class="outline-3">
+<h3 id="org23c6994">Volumes Demo</h3>
+<div class="outline-text-3" id="text-org23c6994">
+<p>
+for persistence in containers
+</p>
+
+<p>
+a directory in host FS is mounted in container FS
+</p>
+
+<p>
+Volume Types
+</p>
+
+<p>
+docker run
+</p>
+
+<ol class="org-ol">
+<li>host volume</li>
+</ol>
+<p>
+-v host<sub>directory</sub>:container<sub>directory</sub>
+</p>
+
+
+<ol class="org-ol">
+<li>anonymous volume</li>
+</ol>
+<p>
+-v contaienr<sub>directory</sub>
+internally host volume will be managed by docker
+/var/lib/docker/volumes/random-hash/<sub>data</sub>
+</p>
+
+
+<ol class="org-ol">
+<li>named volume</li>
+</ol>
+<p>
+-v name:container<sub>directory</sub>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 28.2 (<a href="https://orgmode.org">Org</a> mode 9.5.5)</p>
+</div>
+</body>
+</html>

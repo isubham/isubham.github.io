@@ -1,0 +1,25 @@
+#+OPTIONS: toc:nil  :PROPERTIES: :UNNUMBERED: notoc :END: 
+#+OPTIONS: html-postamble:nil
+#+AUTHOR: subham kumar
+
+
+
+* Subham Kumar' Blog
+
+Welcome,
+
+I am Senior Software Engineer with 5 years of experience from Jharkhand, India.
+
+My corner to write about technology , ____ , ____
+
+
+* Writings
+
+- [[./nodejs-express.html][express.js]]
+- [[./docker.html][docker]]
+- [[./kubernetes.html][kubernetes - quick start]]
+- [[file:database-normalization.html][database normalization]]
+- [[./emacs-orgmode.html][Emacs Org Mode]]
+- [[./reactjs.org][react.js]]
+- [[file:smartphone.html][smarthpone's]]
+
