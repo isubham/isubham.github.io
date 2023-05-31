@@ -15,11 +15,13 @@ My corner to write about technology , ____ , ____
 
 * Writings
 
-- [[./nodejs-express.html][express.js]]
+
+- [[./remote-debugging-in-node.html][Magic Remote Debugging in Node.js]]
 - [[./docker.html][docker]]
 - [[./kubernetes.html][kubernetes - quick start]]
 - [[file:database-normalization.html][database normalization]]
-- [[./emacs-orgmode.html][Emacs Org Mode]]
+- [[./nodejs-express.html][express.js]]
 - [[./reactjs.org][react.js]]
+- [[./emacs-orgmode.html][Emacs Org Mode]]
 - [[file:smartphone.html][smarthpone's]]
 

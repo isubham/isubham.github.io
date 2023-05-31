@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org07e39ca">Remote Debugging in Node</a>
+<ul>
+<li><a href="#org10a5555">Run server node process with &#x2013;inpsect</a></li>
+<li><a href="#orgb256a91">SSH Port forwarding from local to remote</a></li>
+<li><a href="#orge8cf00e">Configure local port pointed to remote</a></li>
+<li><a href="#orgb0f04fe">Hit the Endpoint and Debug</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org07e39ca" class="outline-2">
+<h2 id="org07e39ca">Remote Debugging in Node</h2>
+<div class="outline-text-2" id="text-org07e39ca">
+<p>
+When we say remote debugging what we generally mean is checking at log
+messages, how system behave in a given input.
+</p>
+
+<p>
+But after this article we will be able to do debugging as we do in our
+local environment and that can be helpful if we have some dependencies
+which are not available in our local machine, be it a cluster based like
+kubernetes when you dont have liberty to deploy every single app on your
+local machine or there was some case where you are not sure about the
+behaviour,
+</p>
+
+<p>
+Lets get started.
+</p>
+</div>
+
+<div id="outline-container-org10a5555" class="outline-3">
+<h3 id="org10a5555">Run server node process with &#x2013;inpsect</h3>
+<div class="outline-text-3" id="text-org10a5555">
+<p>
+So first thing we will have to do is run our node process with &#x2013;inspect
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">node --inspect &lt;script.js&gt;
+</pre>
+</div>
+
+<p>
+Node.js process will now listen to incoming debug clients. The debug clients
+here we generally have is vscode when we try to debug our apps during development.
+</p>
+
+<p>
+The port on which it listens is 9229.
+So full url is ws://127.0.0.1:9229/9bea9c74-773d-4a36-804d-f2e2fba1c8a1
+</p>
+
+<p>
+So let's run it in a project and assume it is server.
+</p>
+
+
+<div id="orgc450828" class="figure">
+<p><img src="../img/vscode-run-via-node-inspect.png" alt="vscode-run-via-node-inspect.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb256a91" class="outline-3">
+<h3 id="orgb256a91">SSH Port forwarding from local to remote</h3>
+<div class="outline-text-3" id="text-orgb256a91">
+<p>
+Lets say we have a server details like subham@192.168.1.137.
+So ssh into that server with
+</p>
+
+<p>
+ssh -L 9221:localhost:9229  subham@192.168.1.137
+</p>
+
+<p>
+The 9229 is the same port that node.js process is listening on.
+So we forwarding 9221 of dev machine to 9229 or server.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge8cf00e" class="outline-3">
+<h3 id="orge8cf00e">Configure local port pointed to remote</h3>
+<div class="outline-text-3" id="text-orge8cf00e">
+<p>
+open
+</p>
+
+<p>
+chrome://inspect/#devices
+</p>
+
+
+<div id="org0faab39" class="figure">
+<p><img src="../img/chrome-inspect-tab.png" alt="chrome-inspect-tab.png" />
+</p>
+</div>
+
+<p>
+Click on Open dedicated DevTools for Node
+</p>
+
+
+<div id="orgd2c647d" class="figure">
+<p><img src="../img/chrom-add-network-endpoint.png" alt="chrom-add-network-endpoint.png" />
+</p>
+</div>
+
+
+<p>
+Click on add connection and add port of dev machine which is 9221.
+So that will be localhost:9221
+</p>
+
+<p>
+Opening sources section will have the source code that we have in our server.
+   <img src="../img/chrome-source.png" alt="chrome-source.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb0f04fe" class="outline-3">
+<h3 id="orgb0f04fe">Hit the Endpoint and Debug</h3>
+<div class="outline-text-3" id="text-orgb0f04fe">
+<p>
+Now to debug, we can fire request to that server and the debugger will be able to stop at that breakpoint.
+</p>
+
+
+<div id="org99a53fe" class="figure">
+<p><img src="../img/hit-endpoint.png" alt="hit-endpoint.png" />
+</p>
+</div>
+
+<p>
+and we have
+</p>
+
+
+<div id="orgb4652cf" class="figure">
+<p><img src="../img/endpoint-result-debug-in-chrome.png" alt="endpoint-result-debug-in-chrome.png" />
+</p>
+</div>
+
+
+
+<p>
+To Dive Deeper, go to <a href="https://nodejs.org/en/docs/guides/debugging-getting-started">https://nodejs.org/en/docs/guides/debugging-getting-started</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

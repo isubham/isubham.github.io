@@ -5,44 +5,43 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>subham kumar</title>
+<title>&lrm;</title>
 <meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">subham kumar</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb6b31e6">Kubernetes</a>
+<li><a href="#org2be3f70">Kubernetes</a>
 <ul>
-<li><a href="#org8e1e90a">Timeline</a></li>
-<li><a href="#orgee2d067">Basics</a>
+<li><a href="#org4bbe4c2">Timeline</a></li>
+<li><a href="#org9a58ab9">Basics</a>
 <ul>
-<li><a href="#orgd2b39a0">what is kubernetes</a>
+<li><a href="#orgaf6e492">what is kubernetes</a>
 <ul>
-<li><a href="#orgb1a7782">Master</a></li>
-<li><a href="#orge9eaea7">Worker</a></li>
+<li><a href="#org4b3d447">Master</a></li>
+<li><a href="#org6cac1eb">Worker</a></li>
 </ul>
 </li>
-<li><a href="#orgf755a99">main k8s components</a></li>
-<li><a href="#org3c57d7a">k8s architecture</a></li>
-<li><a href="#org2e491c9">minikube and kubectl</a></li>
-<li><a href="#org6096db7">main kubectl commands - k8s CLI</a></li>
-<li><a href="#orge621b3f">K8s YAML Configuration file</a></li>
-<li><a href="#org3ef0cb3">Hands on Demo</a></li>
+<li><a href="#org43bab20">main k8s components</a></li>
+<li><a href="#org8249949">k8s architecture</a></li>
+<li><a href="#org36879aa">minikube and kubectl</a></li>
+<li><a href="#org3486547">main kubectl commands - k8s CLI</a></li>
+<li><a href="#org78d4e1c">K8s YAML Configuration file</a></li>
+<li><a href="#org4be7a57">Hands on Demo</a></li>
 </ul>
 </li>
-<li><a href="#orgd21704e">Advanced</a>
+<li><a href="#orgce88dbb">Advanced</a>
 <ul>
-<li><a href="#org55e0522">K8s Namesspaces - organizer your components</a></li>
-<li><a href="#org3f730a4">k8s ingress</a></li>
-<li><a href="#org7502714">Helm - package manager</a></li>
-<li><a href="#orge510e9e">Volums - pesisting in k8s</a></li>
-<li><a href="#org33537cc">K8s statefulset - deploment stateful apps</a></li>
-<li><a href="#orgd893313">k8s services typs for different usecases</a></li>
+<li><a href="#orgc7db8ba">K8s Namesspaces - organizer your components</a></li>
+<li><a href="#org35a03b3">k8s ingress</a></li>
+<li><a href="#orgf7ff995">Helm - package manager</a></li>
+<li><a href="#orgc0bc777">Volums - pesisting in k8s</a></li>
+<li><a href="#orgaced106">K8s statefulset - deploment stateful apps</a></li>
+<li><a href="#orga085d70">k8s services typs for different usecases</a></li>
 </ul>
 </li>
 </ul>
@@ -50,13 +49,13 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb6b31e6" class="outline-2">
-<h2 id="orgb6b31e6">Kubernetes</h2>
-<div class="outline-text-2" id="text-orgb6b31e6">
+<div id="outline-container-org2be3f70" class="outline-2">
+<h2 id="org2be3f70">Kubernetes</h2>
+<div class="outline-text-2" id="text-org2be3f70">
 </div>
-<div id="outline-container-org8e1e90a" class="outline-3">
-<h3 id="org8e1e90a">Timeline</h3>
-<div class="outline-text-3" id="text-org8e1e90a">
+<div id="outline-container-org4bbe4c2" class="outline-3">
+<h3 id="org4bbe4c2">Timeline</h3>
+<div class="outline-text-3" id="text-org4bbe4c2">
 <p>
 Session 1, 2, 3, 4, 5, 6, 7, 8
 Session 1
@@ -81,13 +80,13 @@ Session
 </div>
 </div>
 
-<div id="outline-container-orgee2d067" class="outline-3">
-<h3 id="orgee2d067">Basics</h3>
-<div class="outline-text-3" id="text-orgee2d067">
+<div id="outline-container-org9a58ab9" class="outline-3">
+<h3 id="org9a58ab9">Basics</h3>
+<div class="outline-text-3" id="text-org9a58ab9">
 </div>
-<div id="outline-container-orgd2b39a0" class="outline-4">
-<h4 id="orgd2b39a0">what is kubernetes</h4>
-<div class="outline-text-4" id="text-orgd2b39a0">
+<div id="outline-container-orgaf6e492" class="outline-4">
+<h4 id="orgaf6e492">what is kubernetes</h4>
+<div class="outline-text-4" id="text-orgaf6e492">
 <p>
 container orchestration platform for deploying, managing and analyzing containers.
 written in go
@@ -111,9 +110,9 @@ masters are resposible for managing workers which run applications.
 </p>
 </div>
 
-<div id="outline-container-orgb1a7782" class="outline-5">
-<h5 id="orgb1a7782">Master</h5>
-<div class="outline-text-5" id="text-orgb1a7782">
+<div id="outline-container-org4b3d447" class="outline-5">
+<h5 id="org4b3d447">Master</h5>
+<div class="outline-text-5" id="text-org4b3d447">
 <ul class="org-ul">
 <li>api server
 container, entry point of kubernetes cluster
@@ -131,9 +130,9 @@ Virtual network
 </div>
 </div>
 
-<div id="outline-container-orge9eaea7" class="outline-5">
-<h5 id="orge9eaea7">Worker</h5>
-<div class="outline-text-5" id="text-orge9eaea7">
+<div id="outline-container-org6cac1eb" class="outline-5">
+<h5 id="org6cac1eb">Worker</h5>
+<div class="outline-text-5" id="text-org6cac1eb">
 <ul class="org-ul">
 <li>kublet (communication, running application)
 N no of docker containers can run</li>
@@ -157,9 +156,9 @@ service
 </div>
 
 
-<div id="outline-container-orgf755a99" class="outline-4">
-<h4 id="orgf755a99">main k8s components</h4>
-<div class="outline-text-4" id="text-orgf755a99">
+<div id="outline-container-org43bab20" class="outline-4">
+<h4 id="org43bab20">main k8s components</h4>
+<div class="outline-text-4" id="text-org43bab20">
 <ul class="org-ul">
 <li><p>
 node and pod
@@ -266,43 +265,43 @@ To solve this problem we have Stateful set to deploy stateful applications.
 
 
 
-<div id="outline-container-org3c57d7a" class="outline-4">
-<h4 id="org3c57d7a">k8s architecture</h4>
+<div id="outline-container-org8249949" class="outline-4">
+<h4 id="org8249949">k8s architecture</h4>
 </div>
-<div id="outline-container-org2e491c9" class="outline-4">
-<h4 id="org2e491c9">minikube and kubectl</h4>
+<div id="outline-container-org36879aa" class="outline-4">
+<h4 id="org36879aa">minikube and kubectl</h4>
 </div>
-<div id="outline-container-org6096db7" class="outline-4">
-<h4 id="org6096db7">main kubectl commands - k8s CLI</h4>
+<div id="outline-container-org3486547" class="outline-4">
+<h4 id="org3486547">main kubectl commands - k8s CLI</h4>
 </div>
-<div id="outline-container-orge621b3f" class="outline-4">
-<h4 id="orge621b3f">K8s YAML Configuration file</h4>
+<div id="outline-container-org78d4e1c" class="outline-4">
+<h4 id="org78d4e1c">K8s YAML Configuration file</h4>
 </div>
-<div id="outline-container-org3ef0cb3" class="outline-4">
-<h4 id="org3ef0cb3">Hands on Demo</h4>
+<div id="outline-container-org4be7a57" class="outline-4">
+<h4 id="org4be7a57">Hands on Demo</h4>
 </div>
 </div>
-<div id="outline-container-orgd21704e" class="outline-3">
-<h3 id="orgd21704e">Advanced</h3>
-<div class="outline-text-3" id="text-orgd21704e">
+<div id="outline-container-orgce88dbb" class="outline-3">
+<h3 id="orgce88dbb">Advanced</h3>
+<div class="outline-text-3" id="text-orgce88dbb">
 </div>
-<div id="outline-container-org55e0522" class="outline-4">
-<h4 id="org55e0522">K8s Namesspaces - organizer your components</h4>
+<div id="outline-container-orgc7db8ba" class="outline-4">
+<h4 id="orgc7db8ba">K8s Namesspaces - organizer your components</h4>
 </div>
-<div id="outline-container-org3f730a4" class="outline-4">
-<h4 id="org3f730a4">k8s ingress</h4>
+<div id="outline-container-org35a03b3" class="outline-4">
+<h4 id="org35a03b3">k8s ingress</h4>
 </div>
-<div id="outline-container-org7502714" class="outline-4">
-<h4 id="org7502714">Helm - package manager</h4>
+<div id="outline-container-orgf7ff995" class="outline-4">
+<h4 id="orgf7ff995">Helm - package manager</h4>
 </div>
-<div id="outline-container-orge510e9e" class="outline-4">
-<h4 id="orge510e9e">Volums - pesisting in k8s</h4>
+<div id="outline-container-orgc0bc777" class="outline-4">
+<h4 id="orgc0bc777">Volums - pesisting in k8s</h4>
 </div>
-<div id="outline-container-org33537cc" class="outline-4">
-<h4 id="org33537cc">K8s statefulset - deploment stateful apps</h4>
+<div id="outline-container-orgaced106" class="outline-4">
+<h4 id="orgaced106">K8s statefulset - deploment stateful apps</h4>
 </div>
-<div id="outline-container-orgd893313" class="outline-4">
-<h4 id="orgd893313">k8s services typs for different usecases</h4>
+<div id="outline-container-orga085d70" class="outline-4">
+<h4 id="orga085d70">k8s services typs for different usecases</h4>
 </div>
 </div>
 </div>
