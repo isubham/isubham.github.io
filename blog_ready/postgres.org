@@ -1,0 +1,192 @@
+
+* Postgres - Node Js working with pg client
+
+
+#+BEGIN_SRC javascript
+
+import assert from "assert";
+import { Client } from "pg";
+
+let client = new Client({
+    host: "localhost",
+    port: 5432,
+    database: "postgres",
+    user: "postgres",
+    password: "mysecretpassword"
+});
+
+
+function CallbackAPI(endCallback: { (): void; (): void; }) {
+
+    client.connect((err: any) => {
+        if (err) {
+            console.error('connection error', err.stack)
+        } else {
+            console.log('db connected')
+        }
+    })
+
+    client.query("SELECT NOW()", (err, res) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        console.log(res.rows[0])
+        // client.end()
+    });
+
+    client.query('SELECT $1::text as name', ['brianc'], (err, res) => {
+        if (err) throw err
+        console.log(res.rows[0])
+        endCallback();
+    })
+}
+
+/*
+CallbackAPI(() => {
+        client.end();
+});
+*/
+
+/** pg^7. */
+async function PromiseAPI() {
+
+    try {
+        await client.connect();
+        console.log('db connected');
+    } catch (e) {
+        console.log('db connection failed');
+        console.log(e);
+    };
+
+
+    try {
+        const res = await client.query("SELECT NOW()");
+        console.log(res.rows[0])
+    } catch (e) {
+        console.log(e);
+    };
+
+    try {
+        const res = await client.query('SELECT $1::text as name', ['brianc']);
+        console.log(res.rows[0])
+    } catch (e) {
+        console.log(e);
+    };
+
+}
+
+/*
+PromiseAPI().then(() => {
+    client.end()
+})
+*/
+
+import { Pool } from "pg";
+
+async function connectionPools() {
+    const pool = new Pool({
+        host: 'localhost',
+        user: 'postgres',
+        password: 'mysecretpassword',
+        max: 105,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 2000,
+    });
+
+    // dont use query for a query which needs a transaction
+    /**
+     * why?
+     * transaction works within a single connection/client and 
+     * pool.query will find first idle client and execute the query
+     * so the queries will be getting executed in multiple clients 
+     * and so transaction will not work.
+     */
+    pool
+        .query('SELECT $1::text as name', ['brianc'])
+        .then((res) => console.log(res.rows[0])) // brianc
+        .catch((err) => console.error('Error executing query', err.stack))
+    
+    // crash the node process using uncaught error due to client connection overflow
+    for (let i = 0; i < 20; i++)
+    {
+        console.log('connection no ', i);
+        // prevent crash
+        try {
+            const poolClienti = await pool.connect();
+            const res = await poolClienti.query('SELECT NOW()');
+            await poolClienti.release();
+            console.log("\t", res.rows[0]);
+        } catch(e) {
+            console.log('error connecting to client using pool', e);
+        }
+    }
+
+    /* ERROR 
+    name === 'notice' ? new NoticeMessage(length, messageValue) : new DatabaseError(messageValue, length, name)
+    ^
+error: sorry, too many clients already
+at Parser.parseErrorMessage (/home/subham/anime_server/node_modules/pg-protocol/src/parser.ts:369:69)
+at Parser.handlePacket (/home/subham/anime_server/node_modules/pg-protocol/src/parser.ts:188:21)
+at Parser.parse (/home/subham/anime_server/node_modules/pg-protocol/src/parser.ts:103:30)
+at Socket.<anonymous> (/home/subham/anime_server/node_modules/pg-protocol/src/index.ts:7:48)
+at Socket.emit (node:events:513:28)
+at Socket.emit (node:domain:489:12)
+at addChunk (node:internal/streams/readable:324:12)
+at readableAddChunk (node:internal/streams/readable:297:9)
+at Socket.Readable.push (node:internal/streams/readable:234:10)
+at TCP.onStreamRead (node:internal/stream_base_commons:190:23) {
+length: 85,
+severity: 'FATAL',
+code: '53300',
+detail: undefined,
+hint: undefined,
+position: undefined,
+internalPosition: undefined,
+internalQuery: undefined,
+where: undefined,
+schema: undefined,
+table: undefined,
+column: undefined,
+dataType: undefined,
+constraint: undefined,
+file: 'proc.c',
+line: '357',
+routine: 'InitProcess'
+}
+*/
+
+
+    /**
+     * Pool is an instance of EventEmitter 
+     * so it has certain events we can listen to
+     */
+    
+    pool.on("error", (err,client) => {
+        console.log("pool on error", err);
+    }).on("connect", (client) => {
+        console.log("pool on connect", client);
+    }).on("remove", (client) => {
+        console.log("pool on remove", client);
+    }).on("acquire", (client) => {
+        console.log("pool on acquire", client);
+    });
+
+
+    // we cannot end the pool unless clients are released
+    try {
+        console.log('closing pool');
+        console.log(pool.totalCount, pool.waitingCount, pool.idleCount);
+        // we can only end pool if totalCount and idleCount is same. i.e. there are no active clients.
+        await pool.end(); // on remove gets called
+        console.log('pool closed');
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+connectionPools();
+
+#+END_SRC
+
+Fin

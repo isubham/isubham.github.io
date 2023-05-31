@@ -1,7 +1,7 @@
 ** OrgMode
 
 
-[[file:img/bateman.gif]]
+[[file:../img/bateman.gif]]
 
 *** why org-mode?
 

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>subham kumar</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">subham kumar</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4a23472">Postgres - Node Js working with pg client</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4a23472" class="outline-2">
+<h2 id="org4a23472">Postgres - Node Js working with pg client</h2>
+<div class="outline-text-2" id="text-org4a23472">
+<div class="org-src-container">
+<pre class="src src-javascript">
+<span style="color: #51afef;">import</span> assert from <span style="color: #98be65;">"assert"</span>;
+<span style="color: #51afef;">import</span> { Client } from <span style="color: #98be65;">"pg"</span>;
+
+<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">client</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Client</span>({
+    host: <span style="color: #98be65;">"localhost"</span>,
+    port: 5432,
+    database: <span style="color: #98be65;">"postgres"</span>,
+    user: <span style="color: #98be65;">"postgres"</span>,
+    password: <span style="color: #98be65;">"mysecretpassword"</span>
+});
+
+
+<span style="color: #51afef;">function</span> <span style="color: #c678dd;">CallbackAPI</span>(<span style="color: #dcaeea;">endCallback</span>: { (): <span style="color: #51afef;">void</span>; (): <span style="color: #51afef;">void</span>; }) {
+
+    client.connect((err: any) =&gt; {
+        <span style="color: #51afef;">if</span> (err) {
+            console.error(<span style="color: #98be65;">'connection error'</span>, err.stack)
+        } <span style="color: #51afef;">else</span> {
+            console.log(<span style="color: #98be65;">'db connected'</span>)
+        }
+    })
+
+    client.query(<span style="color: #98be65;">"SELECT NOW()"</span>, (err, res) =&gt; {
+        <span style="color: #51afef;">if</span> (err) {
+            console.log(err);
+            <span style="color: #51afef;">throw</span> err;
+        }
+        console.log(res.rows[0])
+        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">client.end()</span>
+    });
+
+    client.query(<span style="color: #98be65;">'SELECT $1::text as name'</span>, [<span style="color: #98be65;">'brianc'</span>], (err, res) =&gt; {
+        <span style="color: #51afef;">if</span> (err) <span style="color: #51afef;">throw</span> err
+        console.log(res.rows[0])
+        endCallback();
+    })
+}
+
+<span style="color: #5B6268;">/*</span>
+<span style="color: #5B6268;">CallbackAPI(() =&gt; {</span>
+<span style="color: #5B6268;">        client.end();</span>
+<span style="color: #5B6268;">});</span>
+<span style="color: #5B6268;">*/</span>
+
+<span style="color: #83898d;">/** pg^7. */</span>
+<span style="color: #51afef;">async</span> <span style="color: #51afef;">function</span> PromiseAPI() {
+
+    <span style="color: #51afef;">try</span> {
+        <span style="color: #51afef;">await</span> client.connect();
+        console.log(<span style="color: #98be65;">'db connected'</span>);
+    } <span style="color: #51afef;">catch</span> (e) {
+        console.log(<span style="color: #98be65;">'db connection failed'</span>);
+        console.log(e);
+    };
+
+
+    <span style="color: #51afef;">try</span> {
+        <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">res</span> = <span style="color: #51afef;">await</span> client.query(<span style="color: #98be65;">"SELECT NOW()"</span>);
+        console.log(res.rows[0])
+    } <span style="color: #51afef;">catch</span> (e) {
+        console.log(e);
+    };
+
+    <span style="color: #51afef;">try</span> {
+        <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">res</span> = <span style="color: #51afef;">await</span> client.query(<span style="color: #98be65;">'SELECT $1::text as name'</span>, [<span style="color: #98be65;">'brianc'</span>]);
+        console.log(res.rows[0])
+    } <span style="color: #51afef;">catch</span> (e) {
+        console.log(e);
+    };
+
+}
+
+<span style="color: #5B6268;">/*</span>
+<span style="color: #5B6268;">PromiseAPI().then(() =&gt; {</span>
+<span style="color: #5B6268;">    client.end()</span>
+<span style="color: #5B6268;">})</span>
+<span style="color: #5B6268;">*/</span>
+
+<span style="color: #51afef;">import</span> { Pool } from <span style="color: #98be65;">"pg"</span>;
+
+<span style="color: #51afef;">async</span> <span style="color: #51afef;">function</span> connectionPools() {
+    <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">pool</span> = <span style="color: #51afef;">new</span> <span style="color: #ECBE7B;">Pool</span>({
+        host: <span style="color: #98be65;">'localhost'</span>,
+        user: <span style="color: #98be65;">'postgres'</span>,
+        password: <span style="color: #98be65;">'mysecretpassword'</span>,
+        max: 105,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 2000,
+    });
+
+    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">dont use query for a query which needs a transaction</span>
+    <span style="color: #83898d;">/**</span>
+<span style="color: #83898d;">     * why?</span>
+<span style="color: #83898d;">     * transaction works within a single connection/client and </span>
+<span style="color: #83898d;">     * pool.query will find first idle client and execute the query</span>
+<span style="color: #83898d;">     * so the queries will be getting executed in multiple clients </span>
+<span style="color: #83898d;">     * and so transaction will not work.</span>
+<span style="color: #83898d;">     */</span>
+    pool
+        .query(<span style="color: #98be65;">'SELECT $1::text as name'</span>, [<span style="color: #98be65;">'brianc'</span>])
+        .then((res) =&gt; console.log(res.rows[0])) <span style="color: #5B6268;">// </span><span style="color: #5B6268;">brianc</span>
+        .<span style="color: #51afef;">catch</span>((err) =&gt; console.error(<span style="color: #98be65;">'Error executing query'</span>, err.stack))
+
+    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">crash the node process using uncaught error due to client connection overflow</span>
+    <span style="color: #51afef;">for</span> (<span style="color: #51afef;">let</span> <span style="color: #dcaeea;">i</span> = 0; i &lt; 20; i++)
+    {
+        console.log(<span style="color: #98be65;">'connection no '</span>, i);
+        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">prevent crash</span>
+        <span style="color: #51afef;">try</span> {
+            <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">poolClienti</span> = <span style="color: #51afef;">await</span> pool.connect();
+            <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">res</span> = <span style="color: #51afef;">await</span> poolClienti.query(<span style="color: #98be65;">'SELECT NOW()'</span>);
+            <span style="color: #51afef;">await</span> poolClienti.release();
+            console.log(<span style="color: #98be65;">"\t"</span>, res.rows[0]);
+        } <span style="color: #51afef;">catch</span>(e) {
+            console.log(<span style="color: #98be65;">'error connecting to client using pool'</span>, e);
+        }
+    }
+
+    <span style="color: #5B6268;">/* </span><span style="color: #5B6268;">ERROR </span>
+<span style="color: #5B6268;">    name === 'notice' ? new NoticeMessage(length, messageValue) : new DatabaseError(messageValue, length, name)</span>
+<span style="color: #5B6268;">    ^</span>
+<span style="color: #5B6268;">error: sorry, too many clients already</span>
+<span style="color: #5B6268;">at Parser.parseErrorMessage (/home/subham/anime_server/node_modules/pg-protocol/src/parser.ts:369:69)</span>
+<span style="color: #5B6268;">at Parser.handlePacket (/home/subham/anime_server/node_modules/pg-protocol/src/parser.ts:188:21)</span>
+<span style="color: #5B6268;">at Parser.parse (/home/subham/anime_server/node_modules/pg-protocol/src/parser.ts:103:30)</span>
+<span style="color: #5B6268;">at Socket.&lt;anonymous&gt; (/home/subham/anime_server/node_modules/pg-protocol/src/index.ts:7:48)</span>
+<span style="color: #5B6268;">at Socket.emit (node:events:513:28)</span>
+<span style="color: #5B6268;">at Socket.emit (node:domain:489:12)</span>
+<span style="color: #5B6268;">at addChunk (node:internal/streams/readable:324:12)</span>
+<span style="color: #5B6268;">at readableAddChunk (node:internal/streams/readable:297:9)</span>
+<span style="color: #5B6268;">at Socket.Readable.push (node:internal/streams/readable:234:10)</span>
+<span style="color: #5B6268;">at TCP.onStreamRead (node:internal/stream_base_commons:190:23) {</span>
+<span style="color: #5B6268;">length: 85,</span>
+<span style="color: #5B6268;">severity: 'FATAL',</span>
+<span style="color: #5B6268;">code: '53300',</span>
+<span style="color: #5B6268;">detail: undefined,</span>
+<span style="color: #5B6268;">hint: undefined,</span>
+<span style="color: #5B6268;">position: undefined,</span>
+<span style="color: #5B6268;">internalPosition: undefined,</span>
+<span style="color: #5B6268;">internalQuery: undefined,</span>
+<span style="color: #5B6268;">where: undefined,</span>
+<span style="color: #5B6268;">schema: undefined,</span>
+<span style="color: #5B6268;">table: undefined,</span>
+<span style="color: #5B6268;">column: undefined,</span>
+<span style="color: #5B6268;">dataType: undefined,</span>
+<span style="color: #5B6268;">constraint: undefined,</span>
+<span style="color: #5B6268;">file: 'proc.c',</span>
+<span style="color: #5B6268;">line: '357',</span>
+<span style="color: #5B6268;">routine: 'InitProcess'</span>
+<span style="color: #5B6268;">}</span>
+<span style="color: #5B6268;">*/</span>
+
+
+    <span style="color: #83898d;">/**</span>
+<span style="color: #83898d;">     * Pool is an instance of EventEmitter </span>
+<span style="color: #83898d;">     * so it has certain events we can listen to</span>
+<span style="color: #83898d;">     */</span>
+
+    pool.on(<span style="color: #98be65;">"error"</span>, (err,client) =&gt; {
+        console.log(<span style="color: #98be65;">"pool on error"</span>, err);
+    }).on(<span style="color: #98be65;">"connect"</span>, (client) =&gt; {
+        console.log(<span style="color: #98be65;">"pool on connect"</span>, client);
+    }).on(<span style="color: #98be65;">"remove"</span>, (client) =&gt; {
+        console.log(<span style="color: #98be65;">"pool on remove"</span>, client);
+    }).on(<span style="color: #98be65;">"acquire"</span>, (client) =&gt; {
+        console.log(<span style="color: #98be65;">"pool on acquire"</span>, client);
+    });
+
+
+    <span style="color: #5B6268;">// </span><span style="color: #5B6268;">we cannot end the pool unless clients are released</span>
+    <span style="color: #51afef;">try</span> {
+        console.log(<span style="color: #98be65;">'closing pool'</span>);
+        console.log(pool.totalCount, pool.waitingCount, pool.idleCount);
+        <span style="color: #5B6268;">// </span><span style="color: #5B6268;">we can only end pool if totalCount and idleCount is same. i.e. there are no active clients.</span>
+        <span style="color: #51afef;">await</span> pool.end(); <span style="color: #5B6268;">// </span><span style="color: #5B6268;">on remove gets called</span>
+        console.log(<span style="color: #98be65;">'pool closed'</span>);
+    } <span style="color: #51afef;">catch</span> (e) {
+        console.log(e);
+    }
+}
+
+connectionPools();
+
+</pre>
+</div>
+
+<p>
+Fin
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -32,14 +32,27 @@
              :publishing-function 'org-html-publish-to-html
              :publishing-directory "./blog"
              :with-author nil           ;; Don't include author name
-             :with-creator t            ;; Include Emacs and Org versions in footer
+             :with-creator nil            ;; Include Emacs and Org versions in footer
              :with-toc t                ;; Include a table of contents
              :section-numbers nil       ;; Don't include section numbers
-             :time-stamp-file nil)))    ;; Don't include time stamp in file
+             :time-stamp-file nil
+	     :headline-levels 4
+	     :auto-sitemap t
+	     :sitemap-title "Subham's Blog"
+	     :sitemap-filename "sitemap.xml"
+	     :author "Subham Kumar"
+	     :email "subhamkumarchandrawansi@gmail.com"
+	     )))    ;; Don't include time stamp in file
 
 ;; Generate the site output
 (org-publish-all t)
 
 (message "Build complete!")
 
+
+
+;; Get the latest version of emacs
+;; sudo apt-add-repository ppa:ubuntu-elisp/ppa
+;; sudo apt update
+;; sudo apt-get install emacs-snapshot
 

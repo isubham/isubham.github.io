@@ -1,0 +1,30 @@
+
+Create media Managment Service
+
+- play the anime
+- watch history of anime
+- get suggestions
+
+ 
+HLD
+
+anime-catalog service
+this will manage the metadata of anime, watch history, recommendation
+
+storage-service
+this will be manage the files of the anime, stream, add new anime, update the files
+
+
+anime-frontend
+this will show anime, play anime
+
+
+
+client ------ anime frontend ----------  anime-catalog 
+                        |                 /
+               stream   |                / fileId of anime    
+                        |               / 
+                        storage-service/
+
+			
+anime frontend

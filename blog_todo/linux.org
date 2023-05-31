@@ -1,0 +1,6 @@
+
+get process details listening on a port 
+
+lsof -i :8005
+
+

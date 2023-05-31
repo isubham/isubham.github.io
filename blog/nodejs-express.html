@@ -5,37 +5,38 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>&lrm;</title>
+<title>subham kumar</title>
 <meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
 </head>
 <body>
 <div id="content" class="content">
+<h1 class="title">subham kumar</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4d08142">Express</a>
+<li><a href="#org5985ddf">Express</a>
 <ul>
-<li><a href="#org622fb0d">Express Routing &amp; Middleware</a></li>
-<li><a href="#org9cf75e3">middleware,</a></li>
-<li><a href="#org96e09ce">Route Handlers</a></li>
-<li><a href="#orgc29d403">Query Parameters</a></li>
-<li><a href="#org589d24c">Express.Router</a></li>
-<li><a href="#org7b4de7b">Route parameters</a></li>
-<li><a href="#org0dbfeb1">Response Object</a></li>
-<li><a href="#orgf208b96">storing them in a jsonbin</a></li>
-<li><a href="#orgdb0d2d3">MIDDLEWARE</a></li>
-<li><a href="#org49cb884">route level middleware</a></li>
-<li><a href="#org1f515ce">built in middleware</a></li>
+<li><a href="#org0445773">Express Routing &amp; Middleware</a></li>
+<li><a href="#org6375269">middleware,</a></li>
+<li><a href="#orgef203da">Route Handlers</a></li>
+<li><a href="#org175b5da">Query Parameters</a></li>
+<li><a href="#orga52ba8c">Express.Router</a></li>
+<li><a href="#orgbee7f02">Route parameters</a></li>
+<li><a href="#org338365f">Response Object</a></li>
+<li><a href="#org00903ff">storing them in a jsonbin</a></li>
+<li><a href="#orgdeeb8c0">MIDDLEWARE</a></li>
+<li><a href="#org69f7562">route level middleware</a></li>
+<li><a href="#org231216a">built in middleware</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org4d08142" class="outline-2">
-<h2 id="org4d08142">Express</h2>
-<div class="outline-text-2" id="text-org4d08142">
+<div id="outline-container-org5985ddf" class="outline-2">
+<h2 id="org5985ddf">Express</h2>
+<div class="outline-text-2" id="text-org5985ddf">
 <div class="org-src-container">
 <pre class="src src-js">
 console.log(<span style="color: #98be65;">"hello wordld"</span>);
@@ -44,9 +45,9 @@ console.log(<span style="color: #98be65;">"hello wordld"</span>);
 </div>
 </div>
 
-<div id="outline-container-org622fb0d" class="outline-3">
-<h3 id="org622fb0d">Express Routing &amp; Middleware</h3>
-<div class="outline-text-3" id="text-org622fb0d">
+<div id="outline-container-org0445773" class="outline-3">
+<h3 id="org0445773">Express Routing &amp; Middleware</h3>
+<div class="outline-text-3" id="text-org0445773">
 <div class="org-src-container">
 <pre class="src src-js">
 <span style="color: #51afef;">import</span> express from <span style="color: #98be65;">'express'</span>;
@@ -76,9 +77,9 @@ console.log(<span style="color: #98be65;">"hello wordld"</span>);
 </div>
 </div>
 
-<div id="outline-container-org9cf75e3" class="outline-3">
-<h3 id="org9cf75e3">middleware,</h3>
-<div class="outline-text-3" id="text-org9cf75e3">
+<div id="outline-container-org6375269" class="outline-3">
+<h3 id="org6375269">middleware,</h3>
+<div class="outline-text-3" id="text-org6375269">
 <p>
      middleware are functions that called before the routing,
      has access to req, res and next.
@@ -102,9 +103,9 @@ app.use(logger);
 </div>
 </div>
 
-<div id="outline-container-org96e09ce" class="outline-3">
-<h3 id="org96e09ce">Route Handlers</h3>
-<div class="outline-text-3" id="text-org96e09ce">
+<div id="outline-container-orgef203da" class="outline-3">
+<h3 id="orgef203da">Route Handlers</h3>
+<div class="outline-text-3" id="text-orgef203da">
 <p>
 we can have
 app(routeString, handler1(req, res))
@@ -125,9 +126,9 @@ app.get(<span style="color: #98be65;">'/partialarray'</span>, rootInputHandler, 
 </div>
 </div>
 
-<div id="outline-container-orgc29d403" class="outline-3">
-<h3 id="orgc29d403">Query Parameters</h3>
-<div class="outline-text-3" id="text-orgc29d403">
+<div id="outline-container-org175b5da" class="outline-3">
+<h3 id="org175b5da">Query Parameters</h3>
+<div class="outline-text-3" id="text-org175b5da">
 <p>
 req.query gives us access to query parameters
 </p>
@@ -146,9 +147,9 @@ app.get(<span style="color: #98be65;">'/ml/random/'</span>, rootInputHandler, (r
 </div>
 </div>
 
-<div id="outline-container-org589d24c" class="outline-3">
-<h3 id="org589d24c">Express.Router</h3>
-<div class="outline-text-3" id="text-org589d24c">
+<div id="outline-container-orga52ba8c" class="outline-3">
+<h3 id="orga52ba8c">Express.Router</h3>
+<div class="outline-text-3" id="text-orga52ba8c">
 <p>
 this gives a mini-app, modular way to organize resources.
 </p>
@@ -170,9 +171,9 @@ pdfRouter.use((req, res, next) =&gt; {
 </div>
 </div>
 
-<div id="outline-container-org7b4de7b" class="outline-3">
-<h3 id="org7b4de7b">Route parameters</h3>
-<div class="outline-text-3" id="text-org7b4de7b">
+<div id="outline-container-orgbee7f02" class="outline-3">
+<h3 id="orgbee7f02">Route parameters</h3>
+<div class="outline-text-3" id="text-orgbee7f02">
 <p>
  [x] path,
 '<i>:name</i> can be accesed via req.params will have obj {name: name in url}
@@ -192,9 +193,9 @@ pdfRouter.get(<span style="color: #98be65;">'/:name'</span>, rootInputHandler, (
 </div>
 </div>
 
-<div id="outline-container-org0dbfeb1" class="outline-3">
-<h3 id="org0dbfeb1">Response Object</h3>
-<div class="outline-text-3" id="text-org0dbfeb1">
+<div id="outline-container-org338365f" class="outline-3">
+<h3 id="org338365f">Response Object</h3>
+<div class="outline-text-3" id="text-org338365f">
 <ul class="org-ul">
 <li>json</li>
 <li>send</li>
@@ -221,9 +222,9 @@ app.get(<span style="color: #98be65;">'/gf/'</span>, rootInputHandler, (req, res
 </div>
 </div>
 
-<div id="outline-container-orgf208b96" class="outline-3">
-<h3 id="orgf208b96">storing them in a jsonbin</h3>
-<div class="outline-text-3" id="text-orgf208b96">
+<div id="outline-container-org00903ff" class="outline-3">
+<h3 id="org00903ff">storing them in a jsonbin</h3>
+<div class="outline-text-3" id="text-org00903ff">
 <div class="org-src-container">
 <pre class="src src-js">
 app.get(<span style="color: #98be65;">'/waifu/'</span>, rootInputHandler, <span style="color: #51afef;">async</span> (req, res) =&gt; {
@@ -237,12 +238,12 @@ app.get(<span style="color: #98be65;">'/waifu/'</span>, rootInputHandler, <span 
 </div>
 </div>
 
-<div id="outline-container-orgdb0d2d3" class="outline-3">
-<h3 id="orgdb0d2d3">MIDDLEWARE</h3>
+<div id="outline-container-orgdeeb8c0" class="outline-3">
+<h3 id="orgdeeb8c0">MIDDLEWARE</h3>
 </div>
-<div id="outline-container-org49cb884" class="outline-3">
-<h3 id="org49cb884">route level middleware</h3>
-<div class="outline-text-3" id="text-org49cb884">
+<div id="outline-container-org69f7562" class="outline-3">
+<h3 id="org69f7562">route level middleware</h3>
+<div class="outline-text-3" id="text-org69f7562">
 <div class="org-src-container">
 <pre class="src src-js">
 <span style="color: #51afef;">const</span> <span style="color: #dcaeea;">isValid</span> = () =&gt; parseInt(Math.random() * 10) % 2 == 0;
@@ -270,9 +271,9 @@ app.get(<span style="color: #98be65;">'/waifu/'</span>, rootInputHandler, <span 
 </div>
 </div>
 
-<div id="outline-container-org1f515ce" class="outline-3">
-<h3 id="org1f515ce">built in middleware</h3>
-<div class="outline-text-3" id="text-org1f515ce">
+<div id="outline-container-org231216a" class="outline-3">
+<h3 id="org231216a">built in middleware</h3>
+<div class="outline-text-3" id="text-org231216a">
 <ul class="org-ul">
 <li>- express static serve as a FTP server</li>
 </ul>
@@ -320,9 +321,6 @@ app.listen(port, () =&gt; {
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 28.2 (<a href="https://orgmode.org">Org</a> mode 9.5.5)</p>
 </div>
 </body>
 </html>
