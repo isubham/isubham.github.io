@@ -15,50 +15,50 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org99bba19">Docker</a>
+<li><a href="#orge978d32">Docker</a>
 <ul>
-<li><a href="#orgc206531">What is Docker? what is contaienr</a>
+<li><a href="#orgf0a3fb4">What is Docker? what is contaienr</a>
 <ul>
-<li><a href="#org1a871f6">What is a container</a>
+<li><a href="#orgb0957a2">What is a container</a>
 <ul>
-<li><a href="#org6f5e958">How container improved application development</a></li>
+<li><a href="#org57f327d">How container improved application development</a></li>
 </ul>
 </li>
-<li><a href="#org6931fef">What is container</a></li>
-<li><a href="#org464a8e7">Image Vs Container</a></li>
+<li><a href="#orgac6d787">What is container</a></li>
+<li><a href="#org15b580c">Image Vs Container</a></li>
 </ul>
 </li>
-<li><a href="#org92a0943">Docker vs Virtual Machine</a></li>
-<li><a href="#orge753689">Docker installation</a></li>
-<li><a href="#org45ff04a">Commands</a>
+<li><a href="#org3b98bf6">Docker vs Virtual Machine</a></li>
+<li><a href="#org95289ba">Docker installation</a></li>
+<li><a href="#org0a907c3">Commands</a>
 <ul>
-<li><a href="#org494557e">contaienr Vs image</a></li>
-<li><a href="#orgf2c7155">Binding container ports to host ports</a></li>
+<li><a href="#org3ba46c6">contaienr Vs image</a></li>
+<li><a href="#org31cde17">Binding container ports to host ports</a></li>
 </ul>
 </li>
-<li><a href="#orgddd0272">Debugging a container</a></li>
-<li><a href="#org2b802dd">Developing with Container</a></li>
-<li><a href="#orgb043575">Docker compose - Running multiple Service</a></li>
-<li><a href="#org47bb654">Dockerfile</a></li>
-<li><a href="#org96476c6">private docker Repos</a></li>
-<li><a href="#org81ed356">Deploying the containerized group</a></li>
-<li><a href="#org439f862">Volumes Demo</a></li>
+<li><a href="#org0625910">Debugging a container</a></li>
+<li><a href="#org02b0d8d">Developing with Container</a></li>
+<li><a href="#org2f5bb7a">Docker compose - Running multiple Service</a></li>
+<li><a href="#org2625f07">Dockerfile</a></li>
+<li><a href="#org2c9d29f">private docker Repos</a></li>
+<li><a href="#org6eb2ec9">Deploying the containerized group</a></li>
+<li><a href="#org9a5fff0">Volumes Demo</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org99bba19" class="outline-2">
-<h2 id="org99bba19">Docker</h2>
-<div class="outline-text-2" id="text-org99bba19">
+<div id="outline-container-orge978d32" class="outline-2">
+<h2 id="orge978d32">Docker</h2>
+<div class="outline-text-2" id="text-orge978d32">
 </div>
-<div id="outline-container-orgc206531" class="outline-3">
-<h3 id="orgc206531">What is Docker? what is contaienr</h3>
-<div class="outline-text-3" id="text-orgc206531">
+<div id="outline-container-orgf0a3fb4" class="outline-3">
+<h3 id="orgf0a3fb4">What is Docker? what is contaienr</h3>
+<div class="outline-text-3" id="text-orgf0a3fb4">
 </div>
-<div id="outline-container-org1a871f6" class="outline-4">
-<h4 id="org1a871f6">What is a container</h4>
-<div class="outline-text-4" id="text-org1a871f6">
+<div id="outline-container-orgb0957a2" class="outline-4">
+<h4 id="orgb0957a2">What is a container</h4>
+<div class="outline-text-4" id="text-orgb0957a2">
 <ul class="org-ul">
 <li>a way to package application with all the dependencies</li>
 <li>portable artifact</li>
@@ -74,9 +74,9 @@ Container Repository
 </ul>
 </div>
 
-<div id="outline-container-org6f5e958" class="outline-5">
-<h5 id="org6f5e958">How container improved application development</h5>
-<div class="outline-text-5" id="text-org6f5e958">
+<div id="outline-container-org57f327d" class="outline-5">
+<h5 id="org57f327d">How container improved application development</h5>
+<div class="outline-text-5" id="text-org57f327d">
 <p>
 for developing application individual services needs to be added in host machine
 which mighe be different for different applications.
@@ -93,8 +93,8 @@ we can have our
 </div>
 
 <ul class="org-ul">
-<li><a id="org5a5de46"></a>applicaiton deployment<br />
-<div class="outline-text-6" id="text-org5a5de46">
+<li><a id="org245f110"></a>applicaiton deployment<br />
+<div class="outline-text-6" id="text-org245f110">
 <p>
 developer
 </p>
@@ -122,9 +122,9 @@ No configuration on server except docker runtime
 </div>
 </div>
 
-<div id="outline-container-org6931fef" class="outline-4">
-<h4 id="org6931fef">What is container</h4>
-<div class="outline-text-4" id="text-org6931fef">
+<div id="outline-container-orgac6d787" class="outline-4">
+<h4 id="orgac6d787">What is container</h4>
+<div class="outline-text-4" id="text-orgac6d787">
 <ul class="org-ul">
 <li>layer of images</li>
 <li>and base layer is linux (mostly alpine)</li>
@@ -143,9 +143,9 @@ Linux Base Image
 </div>
 </div>
 
-<div id="outline-container-org464a8e7" class="outline-4">
-<h4 id="org464a8e7">Image Vs Container</h4>
-<div class="outline-text-4" id="text-org464a8e7">
+<div id="outline-container-org15b580c" class="outline-4">
+<h4 id="org15b580c">Image Vs Container</h4>
+<div class="outline-text-4" id="text-org15b580c">
 <p>
 artifact
 </p>
@@ -157,9 +157,9 @@ running the image is container
 </div>
 </div>
 
-<div id="outline-container-org92a0943" class="outline-3">
-<h3 id="org92a0943">Docker vs Virtual Machine</h3>
-<div class="outline-text-3" id="text-org92a0943">
+<div id="outline-container-org3b98bf6" class="outline-3">
+<h3 id="org3b98bf6">Docker vs Virtual Machine</h3>
+<div class="outline-text-3" id="text-org3b98bf6">
 <p>
 operating system has 2 components
 </p>
@@ -182,21 +182,21 @@ application layer along with dependencies.
 
 
 
-<div id="outline-container-orge753689" class="outline-3">
-<h3 id="orge753689">Docker installation</h3>
-<div class="outline-text-3" id="text-orge753689">
+<div id="outline-container-org95289ba" class="outline-3">
+<h3 id="org95289ba">Docker installation</h3>
+<div class="outline-text-3" id="text-org95289ba">
 <p>
 already done
 </p>
 </div>
 </div>
-<div id="outline-container-org45ff04a" class="outline-3">
-<h3 id="org45ff04a">Commands</h3>
-<div class="outline-text-3" id="text-org45ff04a">
+<div id="outline-container-org0a907c3" class="outline-3">
+<h3 id="org0a907c3">Commands</h3>
+<div class="outline-text-3" id="text-org0a907c3">
 </div>
-<div id="outline-container-org494557e" class="outline-4">
-<h4 id="org494557e">contaienr Vs image</h4>
-<div class="outline-text-4" id="text-org494557e">
+<div id="outline-container-org3ba46c6" class="outline-4">
+<h4 id="org3ba46c6">contaienr Vs image</h4>
+<div class="outline-text-4" id="text-org3ba46c6">
 <p>
 container = running image 
 </p>
@@ -260,9 +260,9 @@ and started looking for it again after some time
 </div>
 
 
-<div id="outline-container-orgf2c7155" class="outline-4">
-<h4 id="orgf2c7155">Binding container ports to host ports</h4>
-<div class="outline-text-4" id="text-orgf2c7155">
+<div id="outline-container-org31cde17" class="outline-4">
+<h4 id="org31cde17">Binding container ports to host ports</h4>
+<div class="outline-text-4" id="text-org31cde17">
 <p>
 when we run containers, it runs on a port and that port is container port
 and we cannot access it via that port
@@ -301,9 +301,9 @@ docker run -p6001:6379 -d redis:4.0 <span style="color: #5B6268;"># </span><span
 </div>
 
 
-<div id="outline-container-orgddd0272" class="outline-3">
-<h3 id="orgddd0272">Debugging a container</h3>
-<div class="outline-text-3" id="text-orgddd0272">
+<div id="outline-container-org0625910" class="outline-3">
+<h3 id="org0625910">Debugging a container</h3>
+<div class="outline-text-3" id="text-org0625910">
 <p>
 Specifying name while running container
 </p>
@@ -324,9 +324,9 @@ accessing the terminal
 </div>
 
 
-<div id="outline-container-org2b802dd" class="outline-3">
-<h3 id="org2b802dd">Developing with Container</h3>
-<div class="outline-text-3" id="text-org2b802dd">
+<div id="outline-container-org02b0d8d" class="outline-3">
+<h3 id="org02b0d8d">Developing with Container</h3>
+<div class="outline-text-3" id="text-org02b0d8d">
 <p>
 Running MongoDB
 *docker run -d -p 27017:27017 -e MONGO<sub>INITDB</sub><sub>ROOT</sub><sub>USERNAME</sub>=admin -e MONGO<sub>INITDB</sub><sub>ROOT</sub><sub>PASSWORD</sub>=password &#x2013;name mongodb &#x2013;net anime<sub>media</sub><sub>network</sub> mongo
@@ -353,9 +353,9 @@ and build out the application
 </div>
 
 
-<div id="outline-container-orgb043575" class="outline-3">
-<h3 id="orgb043575">Docker compose - Running multiple Service</h3>
-<div class="outline-text-3" id="text-orgb043575">
+<div id="outline-container-org2f5bb7a" class="outline-3">
+<h3 id="org2f5bb7a">Docker compose - Running multiple Service</h3>
+<div class="outline-text-3" id="text-org2f5bb7a">
 <p>
 Running multiple containers cab be tedious at times when we have
 multiple docker containers with additional steps.
@@ -402,9 +402,9 @@ the network is automatically created.
 </div>
 </div>
 
-<div id="outline-container-org47bb654" class="outline-3">
-<h3 id="org47bb654">Dockerfile</h3>
-<div class="outline-text-3" id="text-org47bb654">
+<div id="outline-container-org2625f07" class="outline-3">
+<h3 id="org2625f07">Dockerfile</h3>
+<div class="outline-text-3" id="text-org2625f07">
 <p>
 base image to start off
 </p>
@@ -457,9 +457,9 @@ docker rm &lt;contaienrId&gt;
 </div>
 
 
-<div id="outline-container-org96476c6" class="outline-3">
-<h3 id="org96476c6">private docker Repos</h3>
-<div class="outline-text-3" id="text-org96476c6">
+<div id="outline-container-org2c9d29f" class="outline-3">
+<h3 id="org2c9d29f">private docker Repos</h3>
+<div class="outline-text-3" id="text-org2c9d29f">
 <p>
 Steps to work
 login in the aws ecr 
@@ -478,9 +478,9 @@ docker pull registryDomain/image:tag
 </div>
 
 
-<div id="outline-container-org81ed356" class="outline-3">
-<h3 id="org81ed356">Deploying the containerized group</h3>
-<div class="outline-text-3" id="text-org81ed356">
+<div id="outline-container-org6eb2ec9" class="outline-3">
+<h3 id="org6eb2ec9">Deploying the containerized group</h3>
+<div class="outline-text-3" id="text-org6eb2ec9">
 <p>
 <b>IMPORTANT</b>
 when using containerized app, we need to change the connection string
@@ -490,9 +490,9 @@ of mongodb from ip address to the container name.
 </div>
 
 
-<div id="outline-container-org439f862" class="outline-3">
-<h3 id="org439f862">Volumes Demo</h3>
-<div class="outline-text-3" id="text-org439f862">
+<div id="outline-container-org9a5fff0" class="outline-3">
+<h3 id="org9a5fff0">Volumes Demo</h3>
+<div class="outline-text-3" id="text-org9a5fff0">
 <p>
 for persistence in containers
 </p>

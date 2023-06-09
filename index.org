@@ -3,6 +3,17 @@
 #+AUTHOR: subham kumar
 #+title: subham kumar
 
+#+BEGIN_EXPORT html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PC2BQRC86C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PC2BQRC86C');
+</script>
+#+END_EXPORT
 
 * Subham Kumar
 

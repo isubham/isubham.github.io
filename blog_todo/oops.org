@@ -1,33 +1,27 @@
-object is the key construct and all interactions happen using them, the classic class based OO used classes and objects as the building blocks of the program. 
+* Understand OOP through a imaginary Day in my Life Developer :p.
+Bob, and Sally, and you are on same Streaming enginering team.
 
-Let’s build a note taking app. 
+Paige, a 24 yr old girl from Texas came on the first day.
+She is wearing white T-Shirt and Blue Jean.
 
-Object oriented way
-we would create paper, notebook, pencil. paper would have size, color, thickness. and its behavior might include changing its different attributes like color, similarly every element will have state and some behaviors to each of them,  this coupling is called encapsulation.
+you observed that she only wears T-Shirt and Jean
+of colors white, blue and black.
 
-Paper would also interact with pencil to help draw, it will also interact with eraser to erase. so paper is getting touched with pencil and eraser but they are having different outcome. In a way pencil and eraser belong to same set of elements i.e. they can impact surface of paper.
+you start working together and she seems to do her job well
+as assist you and other team members . 
 
-So paper is behaving differently to same touch - some might draw and some might erase, This is called polymorphism.
+This is just a very short, constrained description of a situation. We are only talking
+about people in a office environment and are only discussing those aspects including
 
-Pencil and eraser, they can belong to same parent called Writer and it would be called inheritance.
+attire,
+task completion,
+collaboration
 
-One other way might be to have this attribute to effect paper be one of its behaviour and not the whole identity, which would give it flexibility to have more behaviours and that way pencil can also interact with other elements and not just paper, it might be other surfaces or other pencils.
+There are a lots of things that is happening to each of the team members like
+they are all sleeping, doing their personal chores, friends outside the office,
+hobbies, and much much more. we cannot write everything about a situation but
+only through some lens which in this example is professional office setting.
+Context is key to apply constraints so that we can detemine some results.
 
-paper
+This proces of only apply constraints is called *Abstraction*.
 
-  touch(writeable writer)
-    writer.write()
-
-
-writer
-
-  write()
-
-
-
-there are of course more ways to think about it and it can be. Few other paradigms include - imperative programming, procedural programming, logic programming. 
-so imperative programming 
-
-References
-
-- https://www.freecodecamp.org/news/an-introduction-to-programming-paradigms/
